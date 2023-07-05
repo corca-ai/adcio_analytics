@@ -1,5 +1,6 @@
 import 'package:adcio_analytics/adcio_analytics.dart';
 import 'package:adcio_analytics/models/log_option.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -39,18 +40,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final _option = LogOption(
+    requestId: 'requestId',
+    cost: 1000,
+    sessionId: 'sessionId',
+    campaignId: 'campainId',
+    productId: 'productId',
+  );
 
   void _incrementCounter() {
     ///
     /// 2. add Click Event
-    final option = LogOption(
-      requestId: 'requestId',
-      cost: 1000,
-      sessionId: 'sessionId',
-      campaignId: 'campainId',
-      productId: 'productId',
-    );
-    AdcioAnalytics.clickLogEvent(option: option);
+    AdcioAnalytics.clickLogEvent(option: _option);
 
     _counter++;
     setState(() {});
@@ -77,10 +78,31 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              AdcioAnalytics.impressionLogEvent(option: _option);
+            },
+            tooltip: 'impression',
+            child: const Icon(CupertinoIcons.eye),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'click',
+            child: const Icon(Icons.ads_click),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: () {
+              AdcioAnalytics.purchaseLogEvent(option: _option);
+            },
+            tooltip: 'purchase',
+            child: const Icon(CupertinoIcons.shopping_cart),
+          ),
+        ],
       ),
     );
   }

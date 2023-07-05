@@ -19,6 +19,43 @@ class AdcioAnalytics {
     log('init E');
   }
 
+  ///
+  /// impression event log
+  static Future<Map<String, dynamic>> impressionLogEvent({
+    required LogOption option,
+  }) async {
+    if (!_isInitialized) {
+      throw PlatformException(
+        code: 'NotInitialzed_AdcioAnalytics',
+      );
+    }
+
+    final url = '${dotenv.env['ROOT_DEV_URL'] ?? ''}/ads/impression';
+    final params = <String, dynamic>{};
+
+    params.addAll(option.toJson);
+
+    final response = await _request(
+      method: _RequestMethod.get,
+      url: url,
+      params: params,
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw PlatformException(
+        code: 'SYSTEM_ERROR',
+        details: {
+          'statusCode': response.statusCode,
+          'body': response.body ?? '',
+        },
+      );
+    }
+  }
+
+  ///
+  /// click event log
   static Future<Map<String, dynamic>> clickLogEvent({
     required LogOption option,
   }) async {
@@ -29,6 +66,41 @@ class AdcioAnalytics {
     }
 
     final url = '${dotenv.env['ROOT_DEV_URL'] ?? ''}/ads/click';
+    final params = <String, dynamic>{};
+
+    params.addAll(option.toJson);
+
+    final response = await _request(
+      method: _RequestMethod.get,
+      url: url,
+      params: params,
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw PlatformException(
+        code: 'SYSTEM_ERROR',
+        details: {
+          'statusCode': response.statusCode,
+          'body': response.body ?? '',
+        },
+      );
+    }
+  }
+
+  ///
+  /// purchase event log
+  static Future<Map<String, dynamic>> purchaseLogEvent({
+    required LogOption option,
+  }) async {
+    if (!_isInitialized) {
+      throw PlatformException(
+        code: 'NotInitialzed_AdcioAnalytics',
+      );
+    }
+
+    final url = '${dotenv.env['ROOT_DEV_URL'] ?? ''}/ads/purchase';
     final params = <String, dynamic>{};
 
     params.addAll(option.toJson);
