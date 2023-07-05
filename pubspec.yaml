@@ -1,0 +1,21 @@
+name: adcio_analytics
+description: collect logs for event analysis of ADCIO projects.
+version: 0.1.0
+homepage:
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_dotenv: ^5.1.0
+  http: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
