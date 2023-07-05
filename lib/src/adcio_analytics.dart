@@ -10,11 +10,18 @@ class AdcioAnalytics {
   AdcioAnalytics._();
 
   static bool _isInitialized = false;
+  static late String _urlKey;
   static final _ApiRequest _request = _ApiRequest(Client());
 
-  static Future<void> init() async {
+  static Future<void> init({
+    String envFileName = '.env',
+    String urlKey = 'ROOT_DEV_URL',
+  }) async {
     log('init S');
-    await dotenv.load(fileName: '.env');
+
+    await dotenv.load(fileName: envFileName);
+    _urlKey = urlKey;
+
     _isInitialized = true;
     log('init E');
   }
@@ -30,7 +37,7 @@ class AdcioAnalytics {
       );
     }
 
-    final url = '${dotenv.env['ROOT_DEV_URL'] ?? ''}/ads/impression';
+    final url = '${dotenv.env[_urlKey] ?? ''}/ads/impression';
     final params = <String, dynamic>{};
 
     params.addAll(option.toJson);
