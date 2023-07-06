@@ -11,6 +11,8 @@ import 'package:http/http.dart';
 class AdcioAnalytics {
   AdcioAnalytics._();
 
+  static const _url = 'https://receiver.adcio.ai';
+
   static bool _isInitialized = false;
   static late String _urlKey;
   static late String _sessionId;
@@ -57,7 +59,7 @@ class AdcioAnalytics {
       );
     }
 
-    final url = '${dotenv.env[_urlKey] ?? ''}/ads/impression';
+    final url = '${dotenv.env[_urlKey] ?? _url}/ads/impression';
     final params = <String, dynamic>{};
 
     params.addAll(option.toJson);
@@ -92,7 +94,7 @@ class AdcioAnalytics {
       );
     }
 
-    final url = '${dotenv.env['ROOT_DEV_URL'] ?? ''}/ads/click';
+    final url = '${dotenv.env['ROOT_DEV_URL'] ?? _url}/ads/click';
     final params = <String, dynamic>{};
 
     params.addAll(option.toJson);
@@ -127,7 +129,7 @@ class AdcioAnalytics {
       );
     }
 
-    final url = '${dotenv.env['ROOT_DEV_URL'] ?? ''}/ads/purchase';
+    final url = '${dotenv.env['ROOT_DEV_URL'] ?? _url}/ads/purchase';
     final params = <String, dynamic>{};
 
     params.addAll(option.toJson);
