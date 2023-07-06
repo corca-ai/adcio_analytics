@@ -17,7 +17,7 @@ class AdcioAnalytics {
   static late String _sessionId;
   static final _ApiRequest _request = _ApiRequest(Client());
 
-  static const _baseUrl = 'https://bbb.adcio.ai';
+  static const _baseUrl = 'https://receiver.adcio.ai';
 
   static String get sessionId => _sessionId;
   static get _url =>
