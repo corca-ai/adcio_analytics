@@ -26,23 +26,16 @@ dependencies:
 
 ### Super simple to use
 
-upload `.env`
-```
-ROOT_DEV_URL=INPUT_RECEIVER_URL
-```
-
-update `pubspec.yaml`
-```
-  assets:
-    - .env
-```
-
-initalize to `main.dart`
+1. initalize in `main.dart`
 ```dart
-await AdcioAnalytics.init();
+void main() async {
+  ...
+  
+  await AdcioAnalytics.init();
+}
 ```
 
-call event log to `page.dart`
+2. call event log in `page.dart`
 ```dart
 final option = LogOption(
       requestId: 'requestId',
@@ -54,7 +47,34 @@ final option = LogOption(
 AdcioAnalytics.clickLogEvent(option: option);
 ```
 
+</br>
 
+### set environment variables
+
+1. create `.env` file in root path
+
+recommend:
+```
+ROOT_DEV_URL=INPUT_RECEIVER_URL
+```
+
+2. update `pubspec.yaml`
+```
+  assets:
+    - .env
+```
+
+3. (optional) initalize in `main.dart`
+```dart
+void main() async {
+  ...
+
+  await AdcioAnalytics.init(
+    envFileName: 'FILE_NAME',
+    urlKey: 'KEY_NAME',
+  );
+}
+```
 </br>
 
 ## Features
