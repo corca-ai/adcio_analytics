@@ -2,7 +2,7 @@ class LogOption {
   LogOption({
     required this.requestId,
     required this.cost,
-    required this.sessionId,
+    this.sessionId,
     this.memberId,
     required this.campaignId,
     required this.productId,
@@ -15,8 +15,9 @@ class LogOption {
 
   /// device unique id
   ///
-  /// Collect for device identification purposes
-  final String sessionId;
+  /// Collect for device identification purposes.
+  /// Device identifier information is automatically inserted without having to fill in separately.
+  final String? sessionId;
 
   /// customerId, userId
   ///
@@ -39,6 +40,26 @@ class LogOption {
       campaignId: json['campainId'] as String,
       productId: json['productId'] as String,
       price: json['price'] as int,
+    );
+  }
+
+  LogOption copy({
+    String? requestId,
+    int? cost,
+    String? sessionId,
+    String? memberId,
+    String? campaignId,
+    String? productId,
+    int? price,
+  }) {
+    return LogOption(
+      requestId: requestId ?? this.requestId,
+      cost: cost ?? this.cost,
+      sessionId: sessionId ?? this.sessionId,
+      memberId: memberId ?? this.memberId,
+      campaignId: campaignId ?? this.campaignId,
+      productId: productId ?? this.productId,
+      price: price ?? this.price,
     );
   }
 

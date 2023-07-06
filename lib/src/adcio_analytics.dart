@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:adcio_analytics/models/log_option.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
@@ -11,7 +13,10 @@ class AdcioAnalytics {
 
   static bool _isInitialized = false;
   static late String _urlKey;
+  static late String _sessionId;
   static final _ApiRequest _request = _ApiRequest(Client());
+
+  static String get sessionId => _sessionId;
 
   static Future<void> init({
     String envFileName = '.env',
@@ -21,9 +26,24 @@ class AdcioAnalytics {
 
     await dotenv.load(fileName: envFileName);
     _urlKey = urlKey;
+    _sessionId = await _setSessionId();
 
     _isInitialized = true;
     log('init E');
+  }
+
+  static Future<String> _setSessionId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
+    if (Platform.isAndroid) {
+      final info = await deviceInfo.androidInfo;
+      return info.id;
+    } else if (Platform.isIOS) {
+      final info = await deviceInfo.iosInfo;
+      return info.identifierForVendor ?? '${DateTime.now()}';
+    } else {
+      return '${DateTime.now()}';
+    }
   }
 
   ///
