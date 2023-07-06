@@ -11,14 +11,15 @@ import 'package:http/http.dart';
 class AdcioAnalytics {
   AdcioAnalytics._();
 
-  static const _url = 'https://receiver.adcio.ai';
-
   static bool _isInitialized = false;
   static late String _urlKey;
   static late String _sessionId;
   static final _ApiRequest _request = _ApiRequest(Client());
 
+  static const _baseUrl = 'https://receiver.adcio.ai';
+
   static String get sessionId => _sessionId;
+  static get _url => dotenv.env[_urlKey] ?? _baseUrl;
 
   static Future<void> init({
     String envFileName = '.env',
@@ -59,7 +60,7 @@ class AdcioAnalytics {
       );
     }
 
-    final url = '${dotenv.env[_urlKey] ?? _url}/ads/impression';
+    final url = '$_url/ads/impression';
     final params = <String, dynamic>{};
 
     params.addAll(option.toJson);
@@ -94,7 +95,7 @@ class AdcioAnalytics {
       );
     }
 
-    final url = '${dotenv.env['ROOT_DEV_URL'] ?? _url}/ads/click';
+    final url = '$_url/ads/click';
     final params = <String, dynamic>{};
 
     params.addAll(option.toJson);
@@ -129,7 +130,7 @@ class AdcioAnalytics {
       );
     }
 
-    final url = '${dotenv.env['ROOT_DEV_URL'] ?? _url}/ads/purchase';
+    final url = '$_url/ads/purchase';
     final params = <String, dynamic>{};
 
     params.addAll(option.toJson);
