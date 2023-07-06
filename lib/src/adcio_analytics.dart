@@ -63,6 +63,7 @@ class AdcioAnalytics {
     final url = '$_url/ads/impression';
     final params = <String, dynamic>{};
 
+    option.sessionId ??= sessionId;
     params.addAll(option.toJson);
 
     final response = await _request(
@@ -98,6 +99,7 @@ class AdcioAnalytics {
     final url = '$_url/ads/click';
     final params = <String, dynamic>{};
 
+    option.sessionId ??= sessionId;
     params.addAll(option.toJson);
 
     final response = await _request(
@@ -133,6 +135,7 @@ class AdcioAnalytics {
     final url = '$_url/ads/purchase';
     final params = <String, dynamic>{};
 
+    option.sessionId ??= sessionId;
     params.addAll(option.toJson);
 
     final response = await _request(

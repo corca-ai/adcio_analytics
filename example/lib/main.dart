@@ -43,7 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final _option = LogOption(
     requestId: 'requestId',
     cost: 1000,
-    sessionId: AdcioAnalytics.sessionId,
     campaignId: 'campainId',
     productId: 'productId',
   );

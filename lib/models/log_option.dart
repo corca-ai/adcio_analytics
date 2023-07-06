@@ -17,7 +17,7 @@ class LogOption {
   ///
   /// Collect for device identification purposes.
   /// Device identifier information is automatically inserted without having to fill in separately.
-  final String? sessionId;
+  String? sessionId;
 
   /// customerId, userId
   ///
