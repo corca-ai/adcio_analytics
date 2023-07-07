@@ -8,6 +8,36 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
+/// ADCIO Analytics API.
+///
+/// ## usage
+///
+/// Once you call (AdcioAnalytics.init)
+/// You may wish to prefix the import.
+///
+///     import 'package:adcio_analytics/adcio_analytics.dart';
+///     import 'package:adcio_analytics/models/log_option.dart';
+///
+///     void main() async {
+///       await await AdcioAnalytics.init();
+///       // ...
+///     }
+///
+///     ...
+///
+///     class _MyHomePageState extends State<MyHomePage> {
+///       final _option = LogOption(
+///         requestId: 'requestId',
+///         cost: 1000,
+///         campaignId: 'campainId',
+///         productId: 'productId',
+///       );
+///
+///       void _onclick() {
+///         AdcioAnalytics.clickLogEvent(option: _option);
+///       }
+///     }
+///
 class AdcioAnalytics {
   AdcioAnalytics._();
 
@@ -23,6 +53,13 @@ class AdcioAnalytics {
   static get _url =>
       _isEmptyEnvFile ? (_baseUrl) : (dotenv.env[_urlKey] ?? _baseUrl);
 
+  /// called only once during runtime.
+  ///
+  /// ## usage
+  ///
+  ///     void main() async {
+  ///       await await AdcioAnalytics.init();
+  ///     }
   static Future<void> init({
     String envFileName = '.env',
     String urlKey = 'ROOT_DEV_URL',

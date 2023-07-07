@@ -9,8 +9,10 @@ class LogOption {
     this.price,
   });
 
+  /// Advertisement identifier
   final String requestId;
 
+  /// The amount of the cast that has been spent by the seller to advertise
   final int cost;
 
   /// device unique id
@@ -25,10 +27,13 @@ class LogOption {
   /// It is used to identify the client's customer.
   final String? memberId;
 
+  /// Campain ID of this advertiment.
   final String campaignId;
 
+  /// Product ID
   final String productId;
 
+  /// The price of the product. This value is needed to calculate the ROAS.
   final int? price;
 
   factory LogOption.fromJson(Map json) {
