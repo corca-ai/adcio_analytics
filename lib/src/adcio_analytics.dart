@@ -16,7 +16,6 @@ import 'package:http/http.dart';
 /// You may wish to prefix the import.
 ///
 ///     import 'package:adcio_analytics/adcio_analytics.dart';
-///     import 'package:adcio_analytics/models/log_option.dart';
 ///
 ///     void main() async {
 ///       await await AdcioAnalytics.init();

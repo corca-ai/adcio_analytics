@@ -1,5 +1,4 @@
 import 'package:adcio_analytics/adcio_analytics.dart';
-import 'package:adcio_analytics/models/log_option.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
