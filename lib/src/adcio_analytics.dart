@@ -206,7 +206,7 @@ class AdcioAnalytics {
   }
 }
 
-enum _RequestMethod { get }
+enum _RequestMethod { get, post }
 
 class _ApiRequest {
   _ApiRequest(Client client) : _client = client;
@@ -234,6 +234,12 @@ class _ApiRequest {
   ) {
     Future<Response> result;
     switch (method) {
+      case _RequestMethod.post:
+        result = _client.post(
+          Uri.parse(url),
+          headers: headers,
+          body: json.encode(params),
+        );
       case _RequestMethod.get:
         if (params?.isNotEmpty ?? false) {
           url += '?${_queryParameters(params!)}';
