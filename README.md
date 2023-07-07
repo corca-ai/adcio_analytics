@@ -51,6 +51,8 @@ AdcioAnalytics.clickLogEvent(option: option);
 
 ### set environment variables
 
+When used for testing or flavor settings, an env environment variable file is created and managed.  
+
 1. create `.env` file in root path
 
 recommend:
