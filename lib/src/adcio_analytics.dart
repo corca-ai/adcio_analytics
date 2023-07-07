@@ -47,6 +47,7 @@ class AdcioAnalytics {
   static final _ApiRequest _request = _ApiRequest(Client());
 
   static const _baseUrl = 'https://receiver.adcio.ai';
+  static const _defaultEnvFileName = '.env';
 
   static String get sessionId => _sessionId;
   static get _url =>
@@ -60,11 +61,19 @@ class AdcioAnalytics {
   ///       await await AdcioAnalytics.init();
   ///     }
   static Future<void> init({
-    String envFileName = '.env',
+    String envFileName = _defaultEnvFileName,
     String urlKey = 'ROOT_DEV_URL',
   }) async {
     log('init S');
 
+    await _setEnv(envFileName);
+    _urlKey = urlKey;
+    _sessionId = await _setSessionId();
+    _isInitialized = true;
+    log('init E');
+  }
+
+  static Future<void> _setEnv(String envFileName) async {
     try {
       await dotenv.load(fileName: envFileName);
       _isEmptyEnvFile = false;
@@ -72,12 +81,6 @@ class AdcioAnalytics {
       _isEmptyEnvFile = true;
       log('FileNotFoundError: $envFileName / $e');
     }
-
-    _urlKey = urlKey;
-    _sessionId = await _setSessionId();
-
-    _isInitialized = true;
-    log('init E');
   }
 
   static Future<String> _setSessionId() async {
