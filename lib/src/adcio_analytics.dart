@@ -116,12 +116,12 @@ class AdcioAnalytics {
     params.addAll(option.toJson);
 
     final response = await _request(
-      method: _RequestMethod.get,
+      method: _RequestMethod.post,
       url: url,
       params: params,
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return response.body;
     } else {
       throw PlatformException(
@@ -152,12 +152,12 @@ class AdcioAnalytics {
     params.addAll(option.toJson);
 
     final response = await _request(
-      method: _RequestMethod.get,
+      method: _RequestMethod.post,
       url: url,
       params: params,
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return response.body;
     } else {
       throw PlatformException(
@@ -188,12 +188,12 @@ class AdcioAnalytics {
     params.addAll(option.toJson);
 
     final response = await _request(
-      method: _RequestMethod.get,
+      method: _RequestMethod.post,
       url: url,
       params: params,
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return response.body;
     } else {
       throw PlatformException(
