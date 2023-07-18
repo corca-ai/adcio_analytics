@@ -5,8 +5,9 @@ import 'dart:io';
 import 'package:adcio_analytics/models/log_option.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
+
+import 'env.dart';
 
 /// ADCIO Analytics API.
 ///
@@ -51,7 +52,7 @@ class AdcioAnalytics {
 
   static String get sessionId => _sessionId;
   static get _url =>
-      _isEmptyEnvFile ? (_baseUrl) : (dotenv.env[_urlKey] ?? _baseUrl);
+      _isEmptyEnvFile ? (_baseUrl) : (Env.env[_urlKey] ?? _baseUrl);
 
   /// called only once during runtime.
   ///
@@ -75,7 +76,7 @@ class AdcioAnalytics {
 
   static Future<void> _setEnv(String envFileName) async {
     try {
-      await dotenv.load(fileName: envFileName);
+      await Env.load(fileName: envFileName);
       _isEmptyEnvFile = false;
     } catch (e) {
       _isEmptyEnvFile = true;
