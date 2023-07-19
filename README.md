@@ -6,9 +6,7 @@ adcio_analytics is a app measurement solution that provides statistics on app us
 
 </br>
 
-## Getting started
-
-### Add dependency
+# Installing
 
 You can use the command to add adcio_anlytics as a dependency with the latest stable version:
 
@@ -16,12 +14,37 @@ You can use the command to add adcio_anlytics as a dependency with the latest st
 $ dart pub add adcio_anlytics
 ```
 
-Or you can manually add adcio_anlytics into the dependencies section in your pubspec.yaml:
+Or you can manually add adcio_anlytics into the dependencies section in your `pubspec.yaml`:
 
 ```yaml
 dependencies:
   adcio_anlytics: ^replace-with-latest-version
 ```
+
+**Import it**  
+Now in your Dart code, you can use:
+```
+import 'package:adcio_analytics/adcio_analytics.dart';
+```
+
+</br>
+
+# Usage
+
+To get platform-specific device information as a session ID, your project needs a higher Android SDK version:
+
+### Android Setting
+
+android/app/build.gradle
+
+```
+android {
+    defaultConfig {
+        minSdkVersion 19
+    }
+}
+```
+
 </br>
 
 ### Super simple to use
@@ -67,6 +90,10 @@ ROOT_DEV_URL=INPUT_RECEIVER_URL
 ```
 
 3. (optional) initalize in `main.dart`
+ > default value 
+ >  - env file name: `.env`
+ >  - default key: `ROOT_DEV_URL`
+
 ```dart
 void main() async {
   ...
