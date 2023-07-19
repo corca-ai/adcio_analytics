@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:adcio_analytics/models/log_option.dart';
+import 'package:adcio_analytics/src/errors.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
@@ -104,9 +105,7 @@ class AdcioAnalytics {
     required LogOption option,
   }) async {
     if (!_isInitialized) {
-      throw PlatformException(
-        code: 'NotInitialzed_AdcioAnalytics',
-      );
+      throw NotInitializedError();
     }
 
     final url = '$_url/ads/impression';
@@ -140,9 +139,7 @@ class AdcioAnalytics {
     required LogOption option,
   }) async {
     if (!_isInitialized) {
-      throw PlatformException(
-        code: 'NotInitialzed_AdcioAnalytics',
-      );
+      throw NotInitializedError();
     }
 
     final url = '$_url/ads/click';
@@ -176,9 +173,7 @@ class AdcioAnalytics {
     required LogOption option,
   }) async {
     if (!_isInitialized) {
-      throw PlatformException(
-        code: 'NotInitialzed_AdcioAnalytics',
-      );
+      throw NotInitializedError();
     }
 
     final url = '$_url/ads/purchase';
