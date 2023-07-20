@@ -216,8 +216,15 @@ class _ApiRequest {
     Map<String, dynamic>? params,
   }) async {
     log('[req] $method $url (${params ?? ''})');
-    final httpResponse = await _requestHttp(method, headers, url, params);
+
+    final httpResponse = await _requestHttp(
+      method,
+      headers ?? {'content-type': 'application/json'},
+      url,
+      params,
+    );
     final response = _ApiResponse.fromHttpResponse(httpResponse);
+
     log('[res] $method $url ${response.statusCode} ${response.body}');
     return response;
   }
