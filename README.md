@@ -63,12 +63,20 @@ void main() async {
 final option = LogOption(
       requestId: 'requestId',
       cost: 1000,
-      sessionId: 'sessionId',
       campaignId: 'campainId',
       productId: 'productId',
     );
 AdcioAnalytics.clickLogEvent(option: option);
 ```
+> **Log Option Description**
+> - requestId: Advertisement identifier
+> - cost: The amount of cost that has been spent by the seller to advertise
+> - sessionId: `optional` User device unique value   
+(Automatically generate corresponding device identification)
+> - memberId: `optional` userId of the your app 
+> - campaignId: Campain Id of this Advertisement
+> - productId: Product Id
+> - price: `optional` The price of the product. This value is needed to calculate the ROAS.
 
 </br>
 
