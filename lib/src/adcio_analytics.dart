@@ -108,7 +108,7 @@ class AdcioAnalytics {
       throw NotInitializedError();
     }
 
-    final url = '$_url/ads/impression';
+    final url = '$_url/performance/impression';
     final params = <String, dynamic>{};
 
     option.sessionId ??= sessionId;
@@ -142,7 +142,7 @@ class AdcioAnalytics {
       throw NotInitializedError();
     }
 
-    final url = '$_url/ads/click';
+    final url = '$_url/performance/click';
     final params = <String, dynamic>{};
 
     option.sessionId ??= sessionId;
@@ -176,7 +176,7 @@ class AdcioAnalytics {
       throw NotInitializedError();
     }
 
-    final url = '$_url/ads/purchase';
+    final url = '$_url/performance/purchase';
     final params = <String, dynamic>{};
 
     option.sessionId ??= sessionId;
