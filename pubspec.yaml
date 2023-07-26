@@ -1,6 +1,6 @@
 name: adcio_analytics
 description: collect logs for event analysis of ADCIO projects.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/corca-ai/adcio_analytics
 
 environment:
