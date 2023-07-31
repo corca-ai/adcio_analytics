@@ -76,7 +76,7 @@ class AdcioAnalytics {
     try {
       await Env.load(fileName: envFileName);
       _isEmptyEnvFile = false;
-    } catch (e) {
+    } on FileNotFoundError {
       _isEmptyEnvFile = true;
     }
   }
