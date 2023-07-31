@@ -51,7 +51,11 @@ class AdcioAnalytics {
   static const _baseUrl = 'https://receiver.adcio.ai';
   static const _defaultEnvFileName = '.env';
 
-  static String get sessionId => _sessionId;
+  static String get sessionId {
+    assert(_isInitialized);
+    return _sessionId;
+  }
+
   static get _url =>
       _isEmptyEnvFile ? (_baseUrl) : (Env.env[_urlKey] ?? _baseUrl);
 
