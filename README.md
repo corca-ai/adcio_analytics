@@ -120,6 +120,7 @@ It mainly collects three events: impression, click, and purchase.
 
 Event | Description |  Function
 --- | --- | --- | 
+get sessionId |  | `AdcioAnalytics.sessionId` 
 impression | 광고 노출 | `AdcioAnalytics.impressionLogEvent(option: option)` 
 click | 광고 클릭 | `AdcioAnalytics.clickLogEvent(option: option)` 
 purchase | 광고 구매 | `AdcioAnalytics.purchaseLogEvent(option: option)` 
