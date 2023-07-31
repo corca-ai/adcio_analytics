@@ -66,13 +66,10 @@ class AdcioAnalytics {
     String envFileName = _defaultEnvFileName,
     String urlKey = 'ROOT_DEV_URL',
   }) async {
-    log('init S');
-
     await _setEnv(envFileName);
     _urlKey = urlKey;
     _sessionId = await _setSessionId();
     _isInitialized = true;
-    log('init E');
   }
 
   static Future<void> _setEnv(String envFileName) async {
@@ -81,7 +78,6 @@ class AdcioAnalytics {
       _isEmptyEnvFile = false;
     } catch (e) {
       _isEmptyEnvFile = true;
-      log('FileNotFoundError: $envFileName / $e');
     }
   }
 
