@@ -81,6 +81,20 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           FloatingActionButton(
             onPressed: () {
+              ///
+              /// 3. get sessionId
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('sessionId: ${AdcioAnalytics.sessionId}'),
+                ),
+              );
+            },
+            tooltip: 'show sessionId',
+            child: const Icon(CupertinoIcons.square_arrow_down),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: () {
               AdcioAnalytics.impressionLogEvent(option: _option);
             },
             tooltip: 'impression',
