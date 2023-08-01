@@ -1,3 +1,8 @@
+## 0.1.2
+
+* Minor fixes for sessionId.
+* Updates documentation on README.md.
+
 ## 0.1.1
 
 * feat: Endpoint update
