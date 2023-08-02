@@ -1,6 +1,6 @@
-## 0.1.4
+## 0.1.5
 
-* Minor fixes for sessionId default value
+* Modify the method for setting the default sessionId value
 
 ## 0.1.4
 
