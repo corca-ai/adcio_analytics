@@ -8,7 +8,7 @@ void main() {
     () {
       expect(
           AdcioAnalytics.clickLogEvent(
-            option: LogOption(
+            option: AdcioLogOption(
               requestId: 'requestId',
               cost: 1000,
               campaignId: 'campaignId',
@@ -25,7 +25,7 @@ void main() {
       AdcioAnalytics.init();
       expect(
         AdcioAnalytics.clickLogEvent(
-          option: LogOption(
+          option: AdcioLogOption(
               requestId: 'requestId',
               cost: 1000,
               campaignId: 'campaignId',

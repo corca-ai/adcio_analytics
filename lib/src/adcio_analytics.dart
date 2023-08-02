@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:adcio_analytics/models/log_option.dart';
+import 'package:adcio_analytics/models/adcio_log_option.dart';
 import 'package:adcio_analytics/src/errors.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
@@ -102,7 +102,7 @@ class AdcioAnalytics {
   ///
   /// impression event log
   static Future<Map<String, dynamic>> impressionLogEvent({
-    required LogOption option,
+    required AdcioLogOption option,
   }) async {
     if (!_isInitialized) {
       throw NotInitializedError();
@@ -136,7 +136,7 @@ class AdcioAnalytics {
   ///
   /// click event log
   static Future<Map<String, dynamic>> clickLogEvent({
-    required LogOption option,
+    required AdcioLogOption option,
   }) async {
     if (!_isInitialized) {
       throw NotInitializedError();
@@ -170,7 +170,7 @@ class AdcioAnalytics {
   ///
   /// purchase event log
   static Future<Map<String, dynamic>> purchaseLogEvent({
-    required LogOption option,
+    required AdcioLogOption option,
   }) async {
     if (!_isInitialized) {
       throw NotInitializedError();

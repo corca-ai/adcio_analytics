@@ -39,7 +39,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  final _option = LogOption(
+  final _option = AdcioLogOption(
     requestId: 'requestId',
     cost: 1000,
     campaignId: 'campainId',

@@ -1,11 +1,11 @@
-class LogOption {
-  LogOption({
+class AdcioLogOption {
+  AdcioLogOption({
     required this.requestId,
+    required this.productId,
+    required this.campaignId,
     required this.cost,
     this.sessionId,
     this.memberId,
-    required this.campaignId,
-    required this.productId,
     this.price,
   });
 
@@ -36,8 +36,8 @@ class LogOption {
   /// The price of the product. This value is needed to calculate the ROAS.
   final int? price;
 
-  factory LogOption.fromJson(Map json) {
-    return LogOption(
+  factory AdcioLogOption.fromJson(Map json) {
+    return AdcioLogOption(
       requestId: json['requestId'] as String,
       cost: json['cost'] as int,
       sessionId: json['sessionId'] as String,
@@ -48,7 +48,7 @@ class LogOption {
     );
   }
 
-  LogOption copy({
+  AdcioLogOption copy({
     String? requestId,
     int? cost,
     String? sessionId,
@@ -57,7 +57,7 @@ class LogOption {
     String? productId,
     int? price,
   }) {
-    return LogOption(
+    return AdcioLogOption(
       requestId: requestId ?? this.requestId,
       cost: cost ?? this.cost,
       sessionId: sessionId ?? this.sessionId,
