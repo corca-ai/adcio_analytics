@@ -1,3 +1,7 @@
+## 0.1.6
+
+* Updates documentation on README.md.
+
 ## 0.1.5
 
 * Modify the method for setting the default sessionId value
