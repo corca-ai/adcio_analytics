@@ -37,14 +37,17 @@ class AdcioLogOption {
   final int? price;
 
   factory AdcioLogOption.fromJson(Map json) {
+    final cost = json['cost'];
+    final price = json['price'];
+
     return AdcioLogOption(
       requestId: json['requestId'] as String,
-      cost: json['cost'] as int,
-      sessionId: json['sessionId'] as String,
-      memberId: json['memberId'] as String,
-      campaignId: json['campainId'] as String,
       productId: json['productId'] as String,
-      price: json['price'] as int,
+      campaignId: json['campainId'] as String,
+      cost: (cost is int) ? cost : int.parse(cost as String),
+      sessionId: json['sessionId'] as String?,
+      memberId: json['memberId'] as String?,
+      price: (price is int?) ? price : int.parse(price as String),
     );
   }
 
