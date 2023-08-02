@@ -43,7 +43,7 @@ class AdcioLogOption {
     return AdcioLogOption(
       requestId: json['requestId'] as String,
       productId: json['productId'] as String,
-      campaignId: json['campainId'] as String,
+      campaignId: json['campaignId'] as String,
       cost: (cost is int) ? cost : int.parse(cost as String),
       sessionId: json['sessionId'] as String?,
       memberId: json['memberId'] as String?,
