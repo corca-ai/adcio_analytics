@@ -1,5 +1,9 @@
 ## 0.1.4
 
+* Minor fixes for sessionId default value
+
+## 0.1.4
+
 * Minor fixes
 
 ## 0.1.3
