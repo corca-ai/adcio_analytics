@@ -1,13 +1,15 @@
+import 'package:adcio_analytics/adcio_analytics.dart';
+
 class AdcioLogOption {
   AdcioLogOption({
     required this.requestId,
     required this.productId,
     required this.campaignId,
     required this.cost,
-    this.sessionId,
+    String? sessionId,
     this.memberId,
     this.price,
-  });
+  }) : sessionId = sessionId ?? AdcioAnalytics.sessionId;
 
   /// Advertisement identifier
   final String requestId;
@@ -19,7 +21,7 @@ class AdcioLogOption {
   ///
   /// Collect for device identification purposes.
   /// Device identifier information is automatically inserted without having to fill in separately.
-  String? sessionId;
+  final String sessionId;
 
   /// customerId, userId
   ///
