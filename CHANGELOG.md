@@ -1,3 +1,8 @@
+## 0.1.3
+
+* Minor fixes for casting.
+* Renaming from LogOption to AdcioLogOption.
+
 ## 0.1.2
 
 * Minor fixes for sessionId.
