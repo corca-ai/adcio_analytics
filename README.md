@@ -60,11 +60,11 @@ void main() async {
 
 2. call event log in `page.dart`
 ```dart
-final option = LogOption(
+final option = AdcioLogOption(
       requestId: 'requestId',
-      cost: 1000,
       campaignId: 'campainId',
       productId: 'productId',
+      cost: 1000,
     );
 AdcioAnalytics.clickLogEvent(option: option);
 ```
