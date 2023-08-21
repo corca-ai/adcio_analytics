@@ -36,10 +36,12 @@ class ApiClient {
   Future<void> call({
     required String requestId,
     required String adsetId,
+    int? amount,
   }) async {
     final params = <String, dynamic>{};
     params['requestId'] = requestId;
     params['adsetId'] = adsetId;
+    if (amount != null) params['amount'] = amount;
 
     final response = await _request(
       method: RequestMethod.post,

@@ -32,11 +32,13 @@ class AdcioAnalytics {
   /// purchase event log
   static void onPurchase(
     AdcioLogOption option, {
+    required int amount,
     String? baseUrl,
   }) {
     PurchaseApiClient(baseUrl: baseUrl).call(
       requestId: option.requestId,
       adsetId: option.adsetId,
+      amount: amount,
     );
   }
 }
