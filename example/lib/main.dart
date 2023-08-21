@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _adcioSuggestion = adcioSuggest(
       placementId: '9f9f9b00-dc16-41c7-a5cd-f9a788d3d481',
-      baseUrl: 'https://api-dev.adcio.ai',
+      baseUrl: 'https://api-dev.adcio.ai', // optional example
     );
   }
 
@@ -68,7 +68,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: 100,
                       fit: BoxFit.cover,
                     ),
-                    title: Text(product.name),
+                    title: Text(
+                      product.name,
+                      maxLines: 3,
+                    ),
+                    subtitle: Text('₩ ${product.price}'),
+                    trailing: TextButton.icon(
+                      onPressed: () {
+                        ///
+                        /// adcio onPurchase example
+                        final option =
+                            AdcioLogOption.fromMap(suggestion.logOptions);
+                        AdcioAnalytics.onPurchase(
+                          option,
+                          baseUrl:
+                              'https://receiver-dev.adcio.ai', // optional example
+                          amount: product.price.toInt(),
+                        );
+                      },
+                      icon: const Icon(Icons.shopping_cart),
+                      label: const Text('Buy'),
+                    ),
                     onTap: () {
                       ///
                       /// adcio onClick example
@@ -76,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           AdcioLogOption.fromMap(suggestion.logOptions);
                       AdcioAnalytics.onClick(
                         option,
-                        baseUrl: 'https://receiver-dev.adcio.ai',
+                        baseUrl:
+                            'https://receiver-dev.adcio.ai', // optional example
                       );
                     },
                   ),
