@@ -1,14 +1,8 @@
 import 'package:adcio_analytics/adcio_analytics.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:adcio_placement/adcio_placement.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  ///
-  /// 1. initialized
-  await AdcioAnalytics.init();
-
+void main() {
   runApp(const MyApp());
 }
 
@@ -38,21 +32,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  final _option = AdcioLogOption(
-    requestId: 'requestId',
-    cost: 1000,
-    campaignId: 'campainId',
-    productId: 'productId',
-  );
-
-  void _incrementCounter() {
-    ///
-    /// 2. add Click Event
-    AdcioAnalytics.clickLogEvent(option: _option);
-
-    _counter++;
-    setState(() {});
+  late Future<AdcioSuggestionRawData> _adcioSuggestion;
+  @override
+  void initState() {
+    super.initState();
+    _adcioSuggestion = adcioSuggest(
+      placementId: '9f9f9b00-dc16-41c7-a5cd-f9a788d3d481',
+      baseUrl: 'https://api-dev.adcio.ai',
+    );
   }
 
   @override
@@ -62,59 +49,46 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              ///
-              /// 3. get sessionId
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('sessionId: ${AdcioAnalytics.sessionId}'),
-                ),
-              );
-            },
-            tooltip: 'show sessionId',
-            child: const Icon(CupertinoIcons.square_arrow_down),
-          ),
-          const SizedBox(height: 10),
-          FloatingActionButton(
-            onPressed: () {
-              AdcioAnalytics.impressionLogEvent(option: _option);
-            },
-            tooltip: 'impression',
-            child: const Icon(CupertinoIcons.eye),
-          ),
-          const SizedBox(height: 10),
-          FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'click',
-            child: const Icon(Icons.ads_click),
-          ),
-          const SizedBox(height: 10),
-          FloatingActionButton(
-            onPressed: () {
-              AdcioAnalytics.purchaseLogEvent(option: _option);
-            },
-            tooltip: 'purchase',
-            child: const Icon(CupertinoIcons.shopping_cart),
-          ),
-        ],
+      body: FutureBuilder(
+        future: _adcioSuggestion,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data as AdcioSuggestionRawData;
+
+            return ListView.builder(
+              itemCount: data.suggestions.length,
+              itemBuilder: (context, index) {
+                final suggestion = data.suggestions[index];
+                final product = suggestion.product;
+
+                return Card(
+                  child: ListTile(
+                    leading: Image.network(
+                      product!.image,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
+                    title: Text(product.name),
+                    onTap: () {
+                      ///
+                      /// adcio onClick example
+                      final option =
+                          AdcioLogOption.fromMap(suggestion.logOptions);
+                      AdcioAnalytics.onClick(
+                        option,
+                        baseUrl: 'https://receiver-dev.adcio.ai',
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          }
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
