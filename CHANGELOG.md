@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Modify the method 
+
 ## 0.1.6
 
 * Updates documentation on README.md.
