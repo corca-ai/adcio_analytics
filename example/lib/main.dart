@@ -37,6 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
+    /// called adcioSuggest method (adcio_placement package)
     _adcioSuggestion = adcioSuggest(
       placementId: '9f9f9b00-dc16-41c7-a5cd-f9a788d3d481',
       baseUrl: 'https://api-dev.adcio.ai', // optional example
@@ -63,6 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 final product = suggestion.product!;
                 final option = AdcioLogOption.fromMap(suggestion.logOptions);
 
+                ///
+                /// AdcioLogDetector example
+                /// (This automatically triggers the onImpression, onClick logging event)
                 return AdcioLogDetector(
                   option: option,
                   child: Card(

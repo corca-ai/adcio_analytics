@@ -3,15 +3,15 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../adcio_analytics.dart';
 
-/// Wrap the Widget that displays the recommended product
-/// from [adcio_placement](https://pub.dev/packages/adcio_placement) with an [AdcioLogDetector].
-///
-/// This automatically triggers the onImpression logging event
-/// when the recommended product is displayed on the screen.
-///
-/// Additionally, when the recommended product is clicked
-/// by the customer (similar to a client user), it triggers the onClick logging event.
 class AdcioLogDetector extends StatelessWidget {
+  /// Wrap the Widget that displays the recommended product
+  /// from [adcio_placement](https://pub.dev/packages/adcio_placement) with an [AdcioLogDetector].
+  ///
+  /// This automatically triggers the onImpression logging event
+  /// when the recommended product is displayed on the screen.
+  ///
+  /// Additionally, when the recommended product is clicked
+  /// by the customer (similar to a client user), it triggers the onClick logging event.
   const AdcioLogDetector({
     super.key,
     required this.child,
