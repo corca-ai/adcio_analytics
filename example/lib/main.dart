@@ -1,6 +1,7 @@
-import 'package:adcio_analytics/adcio_analytics.dart';
 import 'package:adcio_placement/adcio_placement.dart';
 import 'package:flutter/material.dart';
+
+import 'package:adcio_analytics/adcio_analytics.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,47 +60,39 @@ class _MyHomePageState extends State<MyHomePage> {
               itemCount: data.suggestions.length,
               itemBuilder: (context, index) {
                 final suggestion = data.suggestions[index];
-                final product = suggestion.product;
+                final product = suggestion.product!;
+                final option = AdcioLogOption.fromMap(suggestion.logOptions);
 
                 return Card(
-                  child: ListTile(
-                    leading: Image.network(
-                      product!.image,
-                      width: 100,
-                      fit: BoxFit.cover,
+                  ///
+                  /// adcio log detector example
+                  child: AdcioLogDetector(
+                    option: option,
+                    child: ListTile(
+                      leading: Image.network(
+                        product.image,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                      title: Text(
+                        product.name,
+                        maxLines: 3,
+                      ),
+                      subtitle: Text('₩ ${product.price}'),
+                      trailing: TextButton.icon(
+                        onPressed: () {
+                          ///
+                          /// adcio onPurchase example
+                          AdcioAnalytics.onPurchase(
+                            option,
+                            amount:
+                                product.price.toInt(), // actual purchase price
+                          );
+                        },
+                        icon: const Icon(Icons.shopping_cart),
+                        label: const Text('Buy'),
+                      ),
                     ),
-                    title: Text(
-                      product.name,
-                      maxLines: 3,
-                    ),
-                    subtitle: Text('₩ ${product.price}'),
-                    trailing: TextButton.icon(
-                      onPressed: () {
-                        ///
-                        /// adcio onPurchase example
-                        final option =
-                            AdcioLogOption.fromMap(suggestion.logOptions);
-                        AdcioAnalytics.onPurchase(
-                          option,
-                          baseUrl:
-                              'https://receiver-dev.adcio.ai', // optional example
-                          amount: product.price.toInt(),
-                        );
-                      },
-                      icon: const Icon(Icons.shopping_cart),
-                      label: const Text('Buy'),
-                    ),
-                    onTap: () {
-                      ///
-                      /// adcio onClick example
-                      final option =
-                          AdcioLogOption.fromMap(suggestion.logOptions);
-                      AdcioAnalytics.onClick(
-                        option,
-                        baseUrl:
-                            'https://receiver-dev.adcio.ai', // optional example
-                      );
-                    },
                   ),
                 );
               },
