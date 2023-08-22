@@ -14,14 +14,17 @@ adcio_analytics is a app measurement solution that provides statistics on app us
 
 Add `adcio_analytics` as a [dependency in your pubspec.yaml file](https://pub.dev/packages/adcio_analytics/install).
 
+</br>
 
 ### Sample Usage
 
 Usually, it's associated with the [adcio_placement](https://pub.dev/packages/adcio_placement) package.
 
-You call adcioSuggest() from the adcio_placement package and gather the recommended product. With this, you collect three types of logging events: `onClick`, `onImpression`, and `onPurchase`.
+You call `adcioSuggest()` from the [adcio_placement](https://pub.dev/packages/adcio_placement) package and gather the recommended product. With this, you collect three types of logging events: `onClick`, `onImpression`, and `onPurchase`.
 
-By wrapping the recommended product Widget as shown below, the `onClick` and `onImpression` events are automatically collected based on actions.
+</br>
+
+**AdcioLogDetector example:**
 
 ```dart
 class _MyHomePageState extends State<MyHomePage> {
@@ -71,11 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 ```
+By wrapping the recommended product Widget as shown below, the `onClick` and `onImpression` events are automatically collected based on actions.
+
 </br>
 
-For the `onPurchase` event, you input the actual purchase price that the customer paid into price and call the event when the customer clicks the button at the purchase point.
 
-onPurchase example:
+**onPurchase example:**
 ```dart
   final option =
         AdcioLogOption.fromMap(suggestion.logOptions);
@@ -87,6 +91,8 @@ onPurchase example:
     amount: 23910 // actual purchase price
   },
 ```
+For the `onPurchase` event, you input the actual purchase price that the customer paid into price and call the event when the customer clicks the button at the purchase point.
+
 
 </br>
 
