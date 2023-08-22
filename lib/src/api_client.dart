@@ -49,7 +49,7 @@ class ApiClient {
       params: params,
     );
 
-    if (response.statusCode == 200) {
+    if ([200, 201].contains(response.statusCode)) {
       return;
     } else if (response.statusCode == 400) {
       throw UnregisteredIdException();
