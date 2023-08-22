@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Updates documentation on README.md.
+
 ## 0.2.0
 
 * Feature: There have been changes in the way the three logging events are triggered.
