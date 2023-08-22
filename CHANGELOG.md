@@ -1,6 +1,7 @@
 ## 0.2.0
 
-* Modify the method 
+* Feature: There have been changes in the way the three logging events are triggered.
+* Feature: An [AdcioLogDetector] widget has been introduced to automatically collect `onClick` and `onImpression` events.
 
 ## 0.1.6
 
