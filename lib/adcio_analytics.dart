@@ -15,6 +15,8 @@ class AdcioAnalytics {
   static void clearImpressionHistory() => _impressionHistory.clear();
 
   /// click event log
+  ///
+  /// This event is called when a user clicks on a recommended product displayed on a suggestion placement.
   static void onClick(
     AdcioLogOption option, {
     String? baseUrl,
@@ -26,6 +28,8 @@ class AdcioAnalytics {
   }
 
   /// impression event log
+  ///
+  /// This event is called when a suggestion placement is displayed on the screen during the ad lifecycle (e.g., page lifecycle). This call occurs only once when the suggestion placement is revealed.
   static void onImpression(
     AdcioLogOption option, {
     String? baseUrl,
@@ -39,6 +43,8 @@ class AdcioAnalytics {
   }
 
   /// purchase event log
+  ///
+  /// This event is called when a user purchases a recommended product.
   static void onPurchase(
     AdcioLogOption option, {
     required int amount,
