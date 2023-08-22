@@ -17,15 +17,74 @@ Add `adcio_analytics` as a [dependency in your pubspec.yaml file](https://pub.de
 
 ### Sample Usage
 
-onClick example:
+Usually, it's associated with the [adcio_placement](https://pub.dev/packages/adcio_placement) package.
+
+You call adcioSuggest() from the adcio_placement package and gather the recommended product. With this, you collect three types of logging events: `onClick`, `onImpression`, and `onPurchase`.
+
+By wrapping the recommended product Widget as shown below, the `onClick` and `onImpression` events are automatically collected based on actions.
+
 ```dart
-  ...
-  onTap: () {
-    ///
-    /// adcio onClick example
-    final option =
+class _MyHomePageState extends State<MyHomePage> {
+  late Future<AdcioSuggestionRawData> _adcioSuggestion;
+  
+  @override
+  void initState() {
+    super.initState();
+    _adcioSuggestion = adcioSuggest(
+      placementId: '9f9f9b00-dc16-41c7-a5cd-f9a788d3d481',
+    );
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder(
+        future: _adcioSuggestion,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data as AdcioSuggestionRawData;
+
+            return ListView.builder(
+              itemCount: data.suggestions.length,
+              itemBuilder: (context, index) {
+                final suggestion = data.suggestions[index];
+                final product = suggestion.product!;
+                final option = AdcioLogOption.fromMap(suggestion.logOptions);
+
+                // wrap the product widget with AdcioLogDetector
+                return AdcioLogDetector(
+                  option: option,
+                  child: Card( 
+                    child: ListTile(
+                      ...
+                    ),
+                  ),
+                );
+              },
+            );
+          } else {
+            return ...
+          }
+        },
+      ),
+    );
+  }
+}
+```
+</br>
+
+For the `onPurchase` event, you input the actual purchase price that the customer paid into price and call the event when the customer clicks the button at the purchase point.
+
+onPurchase example:
+```dart
+  final option =
         AdcioLogOption.fromMap(suggestion.logOptions);
-    AdcioAnalytics.onClick(option);
+  ...
+  
+  onTap: () {
+    /// adcio onClick example
+    AdcioAnalytics.onPurchase(option);
+    amount: 23910 // actual purchase price
   },
 ```
 
@@ -40,7 +99,6 @@ Event | Description |  Function
 impression | 광고 노출 | `AdcioAnalytics.onImpression(option)` 
 click | 광고 클릭 | `AdcioAnalytics.onClick(option)` 
 purchase | 광고 구매 | `AdcioAnalytics.onPurchase(option, amount: 23910)` 
----
 
 
 

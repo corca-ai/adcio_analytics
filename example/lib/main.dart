@@ -63,11 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 final product = suggestion.product!;
                 final option = AdcioLogOption.fromMap(suggestion.logOptions);
 
-                return Card(
-                  ///
-                  /// adcio log detector example
-                  child: AdcioLogDetector(
-                    option: option,
+                return AdcioLogDetector(
+                  option: option,
+                  child: Card(
                     child: ListTile(
                       leading: Image.network(
                         product.image,
