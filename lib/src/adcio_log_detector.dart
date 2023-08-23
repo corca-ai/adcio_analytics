@@ -37,6 +37,7 @@ class AdcioLogDetector extends StatelessWidget {
         );
       },
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () => AdcioAnalytics.onClick(
           option,
           baseUrl: baseUrl,
