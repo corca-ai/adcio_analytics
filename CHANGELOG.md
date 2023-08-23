@@ -1,3 +1,7 @@
+## 0.2.2
+
+* FIX: detect onClick event on AdcioLogDetector
+
 ## 0.2.1
 
 * Updates documentation on README.md.
