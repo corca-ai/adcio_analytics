@@ -66,34 +66,57 @@ class _MyHomePageState extends State<MyHomePage> {
                 final option = AdcioLogOption.fromMap(suggestion.logOptions);
 
                 ///
-                /// AdcioLogDetector example
-                /// (This automatically triggers the onImpression, onClick logging event)
-                return AdcioLogDetector(
+                /// AdcioImpressionDetector example
+                /// (This automatically triggers the onImpression logging event)
+                return AdcioImpressionDetector(
                   option: option,
-                  child: Card(
-                    child: ListTile(
-                      leading: Image.network(
-                        product.image,
-                        width: 100,
-                        fit: BoxFit.cover,
-                      ),
-                      title: Text(
-                        product.name,
-                        maxLines: 3,
-                      ),
-                      subtitle: Text('₩ ${product.price}'),
-                      trailing: TextButton.icon(
-                        onPressed: () {
-                          ///
-                          /// adcio onPurchase example
-                          AdcioAnalytics.onPurchase(
-                            option,
-                            amount:
-                                product.price.toInt(), // actual purchase price
-                          );
-                        },
-                        icon: const Icon(Icons.shopping_cart),
-                        label: const Text('Buy'),
+                  child: GestureDetector(
+                    onTap: () {
+                      ///
+                      /// adcio onClick example
+                      AdcioAnalytics.onClick(option);
+
+                      // navigate to product detail page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                            appBar: AppBar(title: Text(product.name)),
+                            body: Center(
+                              child: Image.network(
+                                product.image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      child: ListTile(
+                        leading: Image.network(
+                          product.image,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        title: Text(
+                          product.name,
+                          maxLines: 3,
+                        ),
+                        subtitle: Text('₩ ${product.price}'),
+                        trailing: TextButton.icon(
+                          onPressed: () {
+                            ///
+                            /// adcio onPurchase example
+                            AdcioAnalytics.onPurchase(
+                              option,
+                              amount: product.price
+                                  .toInt(), // actual purchase price
+                            );
+                          },
+                          icon: const Icon(Icons.shopping_cart),
+                          label: const Text('Buy'),
+                        ),
                       ),
                     ),
                   ),

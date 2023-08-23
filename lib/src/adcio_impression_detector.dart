@@ -3,16 +3,13 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../adcio_analytics.dart';
 
-class AdcioLogDetector extends StatelessWidget {
+class AdcioImpressionDetector extends StatelessWidget {
   /// Wrap the Widget that displays the recommended product
-  /// from [adcio_placement](https://pub.dev/packages/adcio_placement) with an [AdcioLogDetector].
+  /// from [adcio_placement](https://pub.dev/packages/adcio_placement) with an [AdcioImpressionDetector].
   ///
   /// This automatically triggers the onImpression logging event
   /// when the recommended product is displayed on the screen.
-  ///
-  /// Additionally, when the recommended product is clicked
-  /// by the customer (similar to a client user), it triggers the onClick logging event.
-  const AdcioLogDetector({
+  const AdcioImpressionDetector({
     super.key,
     required this.child,
     required this.option,
@@ -36,14 +33,7 @@ class AdcioLogDetector extends StatelessWidget {
           baseUrl: baseUrl,
         );
       },
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () => AdcioAnalytics.onClick(
-          option,
-          baseUrl: baseUrl,
-        ),
-        child: child,
-      ),
+      child: child,
     );
   }
 }

@@ -24,7 +24,7 @@ You call `adcioSuggest()` from the [adcio_placement](https://pub.dev/packages/ad
 
 </br>
 
-**AdcioLogDetector example:**
+**AdcioImpressionDetector example:**
 
 ```dart
 class _MyHomePageState extends State<MyHomePage> {
@@ -54,10 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 final product = suggestion.product!;
                 final option = AdcioLogOption.fromMap(suggestion.logOptions);
 
-                // wrap the product widget with AdcioLogDetector
-                return AdcioLogDetector(
+                // wrap the product widget with AdcioImpressionDetector
+                return AdcioImpressionDetector(
                   option: option,
-                  child: Card( 
+                  child: Card(  // product widget
                     child: ListTile(
                       ...
                     ),
@@ -74,7 +74,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 ```
-By wrapping the recommended product Widget as shown below, the `onClick` and `onImpression` events are automatically collected based on actions.
+By wrapping the recommended product Widget as shown below, the `onImpression` event are automatically collected based on actions.
+
+</br>
+
+**onClick example:**
+```dart
+  final option =
+        AdcioLogOption.fromMap(suggestion.logOptions);
+  ...
+  
+  onTap: () {
+    ...
+
+    /// adcio onClick example
+    AdcioAnalytics.onClick(option);
+  },
+```
 
 </br>
 
@@ -86,7 +102,7 @@ By wrapping the recommended product Widget as shown below, the `onClick` and `on
   ...
   
   onTap: () {
-    /// adcio onClick example
+    /// adcio onPurchase example
     AdcioAnalytics.onPurchase(option);
     amount: 23910 // actual purchase price
   },
