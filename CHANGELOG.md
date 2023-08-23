@@ -1,3 +1,8 @@
+## 0.2.3
+
+* Feature: remove `onClick` event from AdcioLogDetector
+* Docs: update README.md with `onClick` usage
+
 ## 0.2.2
 
 * FIX: detect onClick event on AdcioLogDetector
