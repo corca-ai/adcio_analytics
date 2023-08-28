@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _adcioSuggestion = adcioSuggest(
-      placementId: '9f9f9b00-dc16-41c7-a5cd-f9a788d3d481',
+      placementId: '...',
     );
   }
   
@@ -53,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 final suggestion = data.suggestions[index];
                 final product = suggestion.product!;
                 final option = AdcioLogOption.fromMap(suggestion.logOptions);
-
+        
+                //
                 // wrap the product widget with AdcioImpressionDetector
                 return AdcioImpressionDetector(
                   option: option,
