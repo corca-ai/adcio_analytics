@@ -1,3 +1,7 @@
+## 0.2.4
+
+* Docs: update example code (not based on `adcio_placement`)
+
 ## 0.2.3
 
 * Feature: remove `onClick` event from AdcioLogDetector
