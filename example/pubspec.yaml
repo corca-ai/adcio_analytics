@@ -37,10 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   adcio_analytics:
     path: ../
-  adcio_placement:
-    git:
-      url: https://github.com/corca-ai/adcio_placement
-      ref: main 
 
 dev_dependencies:
   flutter_test:

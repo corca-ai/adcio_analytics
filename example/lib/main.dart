@@ -1,4 +1,4 @@
-import 'package:adcio_placement/adcio_placement.dart';
+import 'package:example/data/mock_product.dart';
 import 'package:flutter/material.dart';
 
 import 'package:adcio_analytics/adcio_analytics.dart';
@@ -33,16 +33,45 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Future<AdcioSuggestionRawData> _adcioSuggestion;
+  late Future<List<MockProduct>> _adcioSuggestion;
+
   @override
   void initState() {
     super.initState();
 
     /// called adcioSuggest method (adcio_placement package)
-    _adcioSuggestion = adcioSuggest(
-      placementId: '9f9f9b00-dc16-41c7-a5cd-f9a788d3d481',
-      baseUrl: 'https://api-dev.adcio.ai', // optional example
-    );
+    /// ```dart
+    /// _adcioSuggestion = adcioSuggest(
+    ///   placementId: '9f9f9b00-dc16-41c7-a5cd-f9a788d3d481',
+    /// );
+    /// ```
+
+    /// mock adcioSuggest() method
+    _adcioSuggestion = Future.delayed(const Duration(seconds: 1), () {
+      return [
+        MockProduct(
+          id: '1',
+          name: 'Product 1',
+          price: 10000,
+          image: 'https://picsum.photos/200/300',
+          logOptions: {"requestId": "2023081805292275799", "adsetId": "1"},
+        ),
+        MockProduct(
+          id: '2',
+          name: 'Product 2',
+          price: 12000,
+          image: 'https://picsum.photos/200/200',
+          logOptions: {"requestId": "2023081805292275799", "adsetId": "2"},
+        ),
+        MockProduct(
+          id: '3',
+          name: 'Product 3',
+          price: 10300,
+          image: 'https://picsum.photos/300/300',
+          logOptions: {"requestId": "2023081805292275799", "adsetId": "3"},
+        ),
+      ];
+    });
   }
 
   @override
@@ -56,14 +85,13 @@ class _MyHomePageState extends State<MyHomePage> {
         future: _adcioSuggestion,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final data = snapshot.data as AdcioSuggestionRawData;
+            final data = snapshot.data!;
 
             return ListView.builder(
-              itemCount: data.suggestions.length,
+              itemCount: data.length,
               itemBuilder: (context, index) {
-                final suggestion = data.suggestions[index];
-                final product = suggestion.product!;
-                final option = AdcioLogOption.fromMap(suggestion.logOptions);
+                final product = data[index];
+                final option = AdcioLogOption.fromMap(product.logOptions);
 
                 ///
                 /// AdcioImpressionDetector example
