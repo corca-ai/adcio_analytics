@@ -116,6 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       /// adcio onClick example
                       AdcioAnalytics.onClick(option);
 
+                      /// adcio onPageView example
+                      AdcioAnalytics.onPageView(path: "MainPage");
+
+                      AdcioAnalytics.onPageView(path: "Detail/${product.id}");
+
                       // navigate to product detail page
                       Navigator.push(
                         context,
