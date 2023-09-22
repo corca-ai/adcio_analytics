@@ -3,7 +3,7 @@ library adcio_analytics;
 export 'package:adcio_analytics/src/adcio_log_option.dart';
 export 'package:adcio_analytics/src/adcio_impression_detector.dart';
 import 'package:adcio_analytics/adcio_analytics.dart';
-import 'package:adcio_analytics/src/api_client.dart';
+import 'package:adcio_analytics/src/api_performance_client.dart';
 
 class AdcioAnalytics {
   AdcioAnalytics._();
