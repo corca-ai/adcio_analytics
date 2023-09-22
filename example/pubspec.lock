@@ -9,7 +9,7 @@ packages:
     source: path
     version: "0.2.4"
   adcio_core:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: adcio_core
       sha256: "287c662594dab9fac1fb3b1747d93a37ca7d6fface427470c835d5df67f87319"

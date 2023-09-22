@@ -1,9 +1,18 @@
+import 'package:adcio_core/adcio_core.dart';
 import 'package:example/data/mock_product.dart';
 import 'package:flutter/material.dart';
 
 import 'package:adcio_analytics/adcio_analytics.dart';
 
-void main() {
+void main() async {
+  /// You must call this function before calling the initializeApp function to avoid error.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// It is really important to use this function of init in AdcioCore at the time of running the app.
+  /// To learn more about usage of AdcioCore, please visit the AdcioCore Usage documentation.
+  /// https://docs.adcio.ai/en/sdk/core/flutter
+  await AdcioCore.initializeApp(clientId: 'SAMPLE_CLIENT_ID');
+
   runApp(const MyApp());
 }
 
@@ -38,6 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
+    /// adcio onPageView example
+    AdcioAnalytics.onPageView(path: "MainPage");
 
     /// called adcioSuggest method (adcio_placement package)
     /// ```dart
