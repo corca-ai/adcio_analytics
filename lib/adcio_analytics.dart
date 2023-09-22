@@ -3,7 +3,6 @@ library adcio_analytics;
 export 'package:adcio_analytics/src/adcio_log_option.dart';
 export 'package:adcio_analytics/src/adcio_impression_detector.dart';
 import 'package:adcio_analytics/adcio_analytics.dart';
-import 'package:adcio_analytics/src/api_event_client.dart';
 import 'package:adcio_analytics/src/api_performance_client.dart';
 import 'package:adcio_core/adcio_core.dart';
 
@@ -23,7 +22,7 @@ class AdcioAnalytics {
     AdcioLogOption option, {
     String? baseUrl,
   }) {
-    ClickApiClient(baseUrl: baseUrl).call(
+    ClickApiClient(baseUrl: baseUrl).callPerformance(
       requestId: option.requestId,
       adsetId: option.adsetId,
     );
@@ -38,7 +37,7 @@ class AdcioAnalytics {
   }) {
     _impressionHistory.add(option.adsetId);
 
-    ImpressionApiClient(baseUrl: baseUrl).call(
+    ImpressionApiClient(baseUrl: baseUrl).callPerformance(
       requestId: option.requestId,
       adsetId: option.adsetId,
     );
@@ -52,7 +51,7 @@ class AdcioAnalytics {
     required int amount,
     String? baseUrl,
   }) {
-    PurchaseApiClient(baseUrl: baseUrl).call(
+    PurchaseApiClient(baseUrl: baseUrl).callPerformance(
       requestId: option.requestId,
       adsetId: option.adsetId,
       amount: amount,
@@ -73,7 +72,7 @@ class AdcioAnalytics {
     String? referrer,
     String? baseUrl,
   }) {
-    PageViewApiClient(baseUrl: baseUrl).call(
+    PageViewApiClient(baseUrl: baseUrl).callEvent(
       sessionId: sessionId ?? AdcioCore.sessionId,
       deviceId: deviceId ?? AdcioCore.deviceId,
       storeId: storeId ?? AdcioCore.storeId,
