@@ -3,7 +3,9 @@ library adcio_analytics;
 export 'package:adcio_analytics/src/adcio_log_option.dart';
 export 'package:adcio_analytics/src/adcio_impression_detector.dart';
 import 'package:adcio_analytics/adcio_analytics.dart';
+import 'package:adcio_analytics/src/api_event_client.dart';
 import 'package:adcio_analytics/src/api_performance_client.dart';
+import 'package:adcio_core/adcio_core.dart';
 
 class AdcioAnalytics {
   AdcioAnalytics._();
@@ -54,6 +56,32 @@ class AdcioAnalytics {
       requestId: option.requestId,
       adsetId: option.adsetId,
       amount: amount,
+    );
+  }
+
+  /// page view event log
+  ///
+  /// This event is called when a new screen is shown to the user.
+  static void onPageView({
+    required String path,
+    String? sessionId,
+    String? deviceId,
+    String? storeId,
+    String? title,
+    String? customerId,
+    String? productCode,
+    String? referrer,
+    String? baseUrl,
+  }) {
+    PageViewApiClient(baseUrl: baseUrl).call(
+      sessionId: sessionId ?? AdcioCore.sessionId,
+      deviceId: deviceId ?? AdcioCore.deviceId,
+      storeId: storeId ?? AdcioCore.storeId,
+      path: path,
+      customerId: customerId,
+      productCode: productCode,
+      title: title ?? path,
+      referrer: referrer,
     );
   }
 }
