@@ -49,6 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     /// adcio onPageView example
+    /// Currently, this function is called once at the time of page creation.
+    /// Be sure to call the function to match the page-changing Navigation!
     AdcioAnalytics.onPageView(path: "MainPage");
 
     /// called adcioSuggest method (adcio_placement package)
@@ -116,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       /// adcio onClick example
                       AdcioAnalytics.onClick(option);
 
+                      /// Call the onPageView function at the point of navigation like this function.
                       AdcioAnalytics.onPageView(path: "Detail/${product.id}");
 
                       // navigate to product detail page
