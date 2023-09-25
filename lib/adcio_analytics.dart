@@ -2,7 +2,6 @@ library adcio_analytics;
 
 export 'package:adcio_analytics/src/adcio_log_option.dart';
 export 'package:adcio_analytics/src/adcio_impression_detector.dart';
-import 'dart:ffi';
 
 import 'package:adcio_analytics/adcio_analytics.dart';
 import 'package:adcio_analytics/src/api_client.dart';
@@ -79,7 +78,7 @@ class AdcioAnalytics {
     String? storeId,
     String? title,
     String? customerId,
-    String? productCode,
+    String? productIdOnStore,
     String? referrer,
     String? baseUrl,
   }) {
@@ -89,7 +88,7 @@ class AdcioAnalytics {
       storeId: storeId ?? AdcioCore.storeId,
       path: path,
       customerId: customerId,
-      productCode: productCode,
+      productIdOnStore: productIdOnStore,
       title: title ?? path,
       referrer: referrer,
     );

@@ -57,7 +57,7 @@ class ApiClient {
     required String storeId,
     required String path,
     String? customerId,
-    String? productCode,
+    String? productIdOnStore,
     String? title,
     String? referrer,
   }) async {
@@ -67,7 +67,7 @@ class ApiClient {
     params['storeId'] = storeId;
     params['path'] = path;
     if (customerId != null) params['customerId'] = customerId;
-    if (productCode != null) params['productCode'] = productCode;
+    if (productIdOnStore != null) params['productIdOnStore'] = productIdOnStore;
     if (title != null) params['title'] = title;
     if (referrer != null) params['referrer'] = referrer;
 
