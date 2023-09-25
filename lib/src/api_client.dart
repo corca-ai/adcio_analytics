@@ -7,21 +7,28 @@ class ClickApiClient extends ApiClient {
   ClickApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
 
   @override
-  String get url => '${super.url}/click';
+  String get url => '${super.url}/performance/click';
 }
 
 class PurchaseApiClient extends ApiClient {
   PurchaseApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
 
   @override
-  String get url => '${super.url}/purchase';
+  String get url => '${super.url}/performance/purchase';
 }
 
 class ImpressionApiClient extends ApiClient {
   ImpressionApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
 
   @override
-  String get url => '${super.url}/impression';
+  String get url => '${super.url}/performance/impression';
+}
+
+class PageViewApiClient extends ApiClient {
+  PageViewApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
+
+  @override
+  String get url => '${super.url}/events/view';
 }
 
 class ApiClient {
@@ -31,9 +38,9 @@ class ApiClient {
   final ApiRequest _request = ApiRequest(Client());
   final String _baseUrl;
 
-  String get url => '$_baseUrl/performance';
+  String get url => _baseUrl;
 
-  Future<void> call({
+  Future<void> callPerformance({
     required String requestId,
     required String adsetId,
     int? amount,
@@ -43,6 +50,33 @@ class ApiClient {
     params['adsetId'] = adsetId;
     if (amount != null) params['amount'] = amount;
 
+    return _handlePostRequest(params);
+  }
+
+  Future<void> callEvent({
+    required String sessionId,
+    required String deviceId,
+    required String storeId,
+    required String path,
+    String? customerId,
+    String? productCode,
+    String? title,
+    String? referrer,
+  }) async {
+    final params = <String, dynamic>{};
+    params['sessionId'] = sessionId;
+    params['deviceId'] = deviceId;
+    params['storeId'] = storeId;
+    params['path'] = path;
+    if (customerId != null) params['customerId'] = customerId;
+    if (productCode != null) params['productCode'] = productCode;
+    if (title != null) params['title'] = title;
+    if (referrer != null) params['referrer'] = referrer;
+
+    return _handlePostRequest(params);
+  }
+
+  Future<void> _handlePostRequest(Map<String, dynamic> params) async {
     final response = await _request(
       method: RequestMethod.post,
       url: url,
