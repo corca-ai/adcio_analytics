@@ -1,25 +1,16 @@
-#  adcio_analytics
-[![pub package](https://img.shields.io/pub/v/adcio_analytics.svg)](https://pub.dev/packages/adcio_analytics)
+# example
 
-Flutter plugin that collects logs for event analysis of ADCIO projects.
-
-To learn more about ADCIO, please visit the [ADCIO website](https://www.adcio.ai/)
+A new Flutter project.
 
 ## Getting Started
-To get started with ADCIO account, please register [ADCIO account](https://app.adcio.ai/en/)
 
-## Usage
-This is a simple example of using the onClick function:
-```dart
-import 'package:adcio_analytics/adcio_analytics.dart';
+This project is a starting point for a Flutter application.
 
-final option = AdcioLogOption.fromMap(suggestion.logOptions);
+A few resources to get you started if this is your first Flutter project:
 
-onTap: () {
-  AdcioAnalytics.onClick(option);
-},
-```
-To learn more about usage of plugin, please visit the [AdcioAnalytics Usage documentation.](https://docs.adcio.ai/en/sdk/log-collection/flutter)
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-## Issues and feedback
-If the plugin has issues, bugs, feedback, Please contact <dev@corca.ai>.
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
