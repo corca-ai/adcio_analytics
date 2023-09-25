@@ -31,6 +31,13 @@ class PageViewApiClient extends ApiClient {
   String get url => '${super.url}/events/view';
 }
 
+class AddToCartApiClient extends ApiClient {
+  AddToCartApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
+
+  @override
+  String get url => '${super.url}/events/add-to-cart';
+}
+
 class ApiClient {
   ApiClient({String? baseUrl})
       : _baseUrl = baseUrl ?? 'https://receiver.adcio.ai';
@@ -90,6 +97,25 @@ class ApiClient {
     params['orderId'] = orderId;
     params['productIdOnStore'] = productIdOnStore;
     params['amount'] = amount;
+    if (customerId != null) params['customerId'] = customerId;
+
+    return _handlePostRequest(params);
+  }
+
+  Future<void> callAddToCartEvent({
+    required String sessionId,
+    required String deviceId,
+    required String cartId,
+    required String storeId,
+    required String productIdOnStore,
+    String? customerId,
+  }) async {
+    final params = <String, dynamic>{};
+    params['sessionId'] = sessionId;
+    params['deviceId'] = deviceId;
+    params['cartId'] = cartId;
+    params['storeId'] = storeId;
+    params['productIdOnStore'] = productIdOnStore;
     if (customerId != null) params['customerId'] = customerId;
 
     return _handlePostRequest(params);
