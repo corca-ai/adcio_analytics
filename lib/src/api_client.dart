@@ -76,7 +76,7 @@ class ApiClient {
     return handlePostRequest(params);
   }
 
-  Future<void> handlePostRequest(Map<String, dynamic> params) async {
+  Future<void> _handlePostRequest(Map<String, dynamic> params) async {
     final response = await _request(
       method: RequestMethod.post,
       url: url,
