@@ -51,7 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
     /// adcio onPageView example
     /// Currently, this function is called once at the time of page creation.
     /// Be sure to call the function to match the page-changing Navigation!
-    AdcioAnalytics.onPageView(path: "MainPage");
+    AdcioAnalytics.onPageView(
+      path: "MainPage",
+    );
 
     /// called adcioSuggest method (adcio_placement package)
     /// ```dart
@@ -113,59 +115,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 return AdcioImpressionDetector(
                   option: option,
                   child: GestureDetector(
-                    onTap: () {
-                      ///
-                      /// adcio onClick example
-                      AdcioAnalytics.onClick(option);
+                      onTap: () {
+                        ///
+                        /// adcio onClick example
+                        AdcioAnalytics.onClick(
+                          option,
+                        );
 
-                      /// Call the onPageView function at the point of navigation like this function.
-                      AdcioAnalytics.onPageView(path: "Detail/${product.id}");
+                        /// Call the onPageView function at the point of navigation like this function.
+                        AdcioAnalytics.onPageView(
+                          path: "Detail/${product.id}",
+                        );
 
-                      // navigate to product detail page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Scaffold(
-                            appBar: AppBar(title: Text(product.name)),
-                            body: Center(
-                              child: Image.network(
-                                product.image,
-                                fit: BoxFit.cover,
+                        // navigate to product detail page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Scaffold(
+                              appBar: AppBar(title: Text(product.name)),
+                              body: Center(
+                                child: Image.network(
+                                  product.image,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      child: ListTile(
-                        leading: Image.network(
-                          product.image,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        ),
-                        title: Text(
-                          product.name,
-                          maxLines: 3,
-                        ),
-                        subtitle: Text('₩ ${product.price}'),
-                        trailing: TextButton.icon(
-                          onPressed: () {
-                            ///
-                            /// adcio onPurchase example
-                            AdcioAnalytics.onPurchase(
-                              orderId: 'SAMPLE_ORDER_ID',
-                              productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
-                              amount: product.price
-                                  .toInt(), // actual purchase price
-                            );
-                          },
-                          icon: const Icon(Icons.shopping_cart),
-                          label: const Text('Buy'),
-                        ),
-                      ),
-                    ),
-                  ),
+                        );
+                      },
+                      child: AnalyticsSampleListTile(product: product)),
                 );
               },
             );
@@ -177,5 +155,83 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
     );
+  }
+}
+
+class AnalyticsSampleListTile extends StatelessWidget {
+  const AnalyticsSampleListTile({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  final MockProduct product;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.network(
+            product.image,
+            width: 100,
+            height: 50,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                product.name,
+                maxLines: 3,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text('₩ ${product.price}'),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  ///
+                  /// adcio onPurchase example
+                  AdcioAnalytics.onPurchase(
+                    orderId: 'SAMPLE_ORDER_ID',
+                    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+                    amount: product.price.toInt(), // actual purchase price
+                  );
+                },
+                icon: const Icon(Icons.shopify_sharp),
+                label: const Text('Buy'),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  ///
+                  /// adcio onAddToCart example
+                  AdcioAnalytics.onAddToCart(
+                    cartId: "SAMPLE_CART_ID",
+                    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+                  );
+                },
+                icon: const Icon(Icons.shopping_cart),
+                label: const Text('Add To Cart'),
+              ),
+            ],
+          ),
+        )
+      ],
+    ));
   }
 }
