@@ -9,14 +9,33 @@ To learn more about ADCIO, please visit the [ADCIO website](https://www.adcio.ai
 To get started with ADCIO account, please register [ADCIO account](https://app.adcio.ai/en/)
 
 ## Usage
-This is a simple example of using the onClick function:
+There is a simple use example:
 ```dart
 import 'package:adcio_analytics/adcio_analytics.dart';
 
 final option = AdcioLogOption.fromMap(suggestion.logOptions);
 
 onTap: () {
+  // click example
   AdcioAnalytics.onClick(option);
+
+  // Used at the point of screen transition.
+  AdcioAnalytics.onPageView(
+    path: "Detail/${product.id}",
+  );
+
+  // purchase example
+  AdcioAnalytics.onPurchase(
+    orderId: 'SAMPLE_ORDER_ID',
+    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+    amount: product.price.toInt(), // actual purchase price
+  );
+
+  // add to cart example
+  AdcioAnalytics.onAddToCart(
+    cartId: "SAMPLE_CART_ID",
+    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+  );
 },
 ```
 To learn more about usage of plugin, please visit the [AdcioAnalytics Usage documentation.](https://docs.adcio.ai/en/sdk/log-collection/flutter)
