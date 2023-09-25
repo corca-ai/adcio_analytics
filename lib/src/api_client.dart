@@ -10,18 +10,18 @@ class ClickApiClient extends ApiClient {
   String get url => '${super.url}/performance/click';
 }
 
-class PurchaseApiClient extends ApiClient {
-  PurchaseApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
-
-  @override
-  String get url => '${super.url}/performance/purchase';
-}
-
 class ImpressionApiClient extends ApiClient {
   ImpressionApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
 
   @override
   String get url => '${super.url}/performance/impression';
+}
+
+class PurchaseApiClient extends ApiClient {
+  PurchaseApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
+
+  @override
+  String get url => '${super.url}/events/purchase';
 }
 
 class PageViewApiClient extends ApiClient {
@@ -43,17 +43,15 @@ class ApiClient {
   Future<void> callPerformance({
     required String requestId,
     required String adsetId,
-    int? amount,
   }) async {
     final params = <String, dynamic>{};
     params['requestId'] = requestId;
     params['adsetId'] = adsetId;
-    if (amount != null) params['amount'] = amount;
 
     return _handlePostRequest(params);
   }
 
-  Future<void> callEvent({
+  Future<void> callPageViewEvent({
     required String sessionId,
     required String deviceId,
     required String storeId,
@@ -72,6 +70,27 @@ class ApiClient {
     if (productCode != null) params['productCode'] = productCode;
     if (title != null) params['title'] = title;
     if (referrer != null) params['referrer'] = referrer;
+
+    return _handlePostRequest(params);
+  }
+
+  Future<void> callPurchaseEvent({
+    required String sessionId,
+    required String deviceId,
+    required String storeId,
+    required String orderId,
+    required String productIdOnStore,
+    required int amount,
+    String? customerId,
+  }) async {
+    final params = <String, dynamic>{};
+    params['sessionId'] = sessionId;
+    params['deviceId'] = deviceId;
+    params['storeId'] = storeId;
+    params['orderId'] = orderId;
+    params['productIdOnStore'] = productIdOnStore;
+    params['amount'] = amount;
+    if (customerId != null) params['customerId'] = customerId;
 
     return _handlePostRequest(params);
   }
