@@ -50,7 +50,7 @@ class ApiClient {
     params['adsetId'] = adsetId;
     if (amount != null) params['amount'] = amount;
 
-    return handlePostRequest(params);
+    return _handlePostRequest(params);
   }
 
   Future<void> callEvent({
@@ -73,7 +73,7 @@ class ApiClient {
     if (title != null) params['title'] = title;
     if (referrer != null) params['referrer'] = referrer;
 
-    return handlePostRequest(params);
+    return _handlePostRequest(params);
   }
 
   Future<void> _handlePostRequest(Map<String, dynamic> params) async {
