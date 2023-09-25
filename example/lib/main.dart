@@ -154,7 +154,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ///
                             /// adcio onPurchase example
                             AdcioAnalytics.onPurchase(
-                              option,
+                              orderId: 'SAMPLE_ORDER_ID',
+                              productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
                               amount: product.price
                                   .toInt(), // actual purchase price
                             );
