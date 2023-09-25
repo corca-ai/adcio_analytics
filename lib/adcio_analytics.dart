@@ -93,4 +93,26 @@ class AdcioAnalytics {
       referrer: referrer,
     );
   }
+
+  /// add to cart event log
+  ///
+  /// This event is called when the customer adds a product to the cart.
+  static void onAddToCart({
+    required String cartId,
+    required String productIdOnStore,
+    String? sessionId,
+    String? deviceId,
+    String? storeId,
+    String? customerId,
+    String? baseUrl,
+  }) {
+    AddToCartApiClient(baseUrl: baseUrl).callAddToCartEvent(
+      sessionId: sessionId ?? AdcioCore.sessionId,
+      deviceId: deviceId ?? AdcioCore.deviceId,
+      cartId: cartId,
+      storeId: storeId ?? AdcioCore.storeId,
+      productIdOnStore: productIdOnStore,
+      customerId: customerId,
+    );
+  }
 }
