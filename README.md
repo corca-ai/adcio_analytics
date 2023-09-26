@@ -10,33 +10,66 @@ To get started with ADCIO account, please register [ADCIO account](https://app.a
 
 ## Usage
 There is a simple use example:
+
 ```dart
 import 'package:adcio_analytics/adcio_analytics.dart';
 
 final option = AdcioLogOption.fromMap(suggestion.logOptions);
 
-onTap: () {
-  // click example
-  AdcioAnalytics.onClick(option);
+/// impression Widget example
+return AdcioImpressionDetector(
+  option: option,
+  child: YOUR_PRODUCT_WIDGET(
+      ...
+      onTap: () {
 
-  // Used at the point of screen transition.
-  AdcioAnalytics.onPageView(
-    path: "Detail/${product.id}",
-  );
+        /// onClick example
+        AdcioAnalytics.onClick(option);
 
-  // purchase example
-  AdcioAnalytics.onPurchase(
-    orderId: 'SAMPLE_ORDER_ID',
-    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
-    amount: product.price.toInt(), // actual purchase price
-  );
+        /// onPageView example
+        AdcioAnalytics.onPageView(
+          path: "Detail/${product.id}",
+        );
 
-  // add to cart example
-  AdcioAnalytics.onAddToCart(
-    cartId: "SAMPLE_CART_ID",
-    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+        Navigator.push(context, ... ),
+      },
+    ),
   );
-},
+```
+
+There is a AddToCart example:
+```dart
+import 'package:adcio_analytics/adcio_analytics.dart';
+
+return YOUR_PRODUCT_CART_WIDGET(
+  onTap: () {
+    final option = AdcioLogOption.fromMap(suggestion.logOptions);
+    
+    // onAddToCart example
+    AdcioAnalytics.onAddToCart(
+      cartId: "SAMPLE_CART_ID",
+      productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+    );
+  },
+);
+```
+
+There is a purchase example:
+```dart
+import 'package:adcio_analytics/adcio_analytics.dart';
+
+return YOUR_PAYMENT_SUBMIT_WIDGET(
+  onTap: () {
+    final option = AdcioLogOption.fromMap(suggestion.logOptions);
+    
+    // onAddToCart example
+    AdcioAnalytics.onPurchase(
+      orderId: 'SAMPLE_ORDER_ID',
+      productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+      amount: product.price.toInt(), // actual purchase price
+    );
+  },
+);
 ```
 To learn more about usage of plugin, please visit the [AdcioAnalytics Usage documentation.](https://docs.adcio.ai/en/sdk/log-collection/flutter)
 
