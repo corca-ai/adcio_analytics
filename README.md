@@ -1,128 +1,77 @@
-# adcio_analytics
-
+#  adcio_analytics
 [![pub package](https://img.shields.io/pub/v/adcio_analytics.svg)](https://pub.dev/packages/adcio_analytics)
 
-A Flutter plugin to collect logs for event analysis of ADCIO projects.
+Flutter plugin that collects logs for event analysis of ADCIO projects.
 
-adcio_analytics is a app measurement solution that provides statistics on app usage and user engagement.
+To learn more about ADCIO, please visit the [ADCIO website](https://www.adcio.ai/)
 
-</br>
+## Getting Started
+To get started with ADCIO account, please register [ADCIO account](https://app.adcio.ai/en/)
 
 ## Usage
-
-### Installation
-
-Add `adcio_analytics` as a [dependency in your pubspec.yaml file](https://pub.dev/packages/adcio_analytics/install).
-
-</br>
-
-### Sample Usage
-
-Usually, it's associated with the [adcio_placement](https://pub.dev/packages/adcio_placement) package.
-
-You call `adcioSuggest()` from the [adcio_placement](https://pub.dev/packages/adcio_placement) package and gather the recommended product. With this, you collect three types of logging events: `onClick`, `onImpression`, and `onPurchase`.
-
-</br>
-
-**AdcioImpressionDetector example:**
+There is a simple use example:
 
 ```dart
-class _MyHomePageState extends State<MyHomePage> {
-  late Future<AdcioSuggestionRawData> _adcioSuggestion;
-  
-  @override
-  void initState() {
-    super.initState();
-    _adcioSuggestion = adcioSuggest(
-      placementId: '...',
-    );
-  }
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
-        future: _adcioSuggestion,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final data = snapshot.data as AdcioSuggestionRawData;
+import 'package:adcio_analytics/adcio_analytics.dart';
 
-            return ListView.builder(
-              itemCount: data.suggestions.length,
-              itemBuilder: (context, index) {
-                final suggestion = data.suggestions[index];
-                final product = suggestion.product!;
-                final option = AdcioLogOption.fromMap(suggestion.logOptions);
-        
-                //
-                // wrap the product widget with AdcioImpressionDetector
-                return AdcioImpressionDetector(
-                  option: option,
-                  child: Card(  // product widget
-                    child: ListTile(
-                      ...
-                    ),
-                  ),
-                );
-              },
-            );
-          } else {
-            return ...
-          }
-        },
-      ),
-    );
-  }
-}
+final option = AdcioLogOption.fromMap(suggestion.logOptions);
+
+/// impression Widget example
+return AdcioImpressionDetector(
+  option: option,
+  child: YOUR_PRODUCT_WIDGET(
+      ...
+      onTap: () {
+
+        /// onClick example
+        AdcioAnalytics.onClick(option);
+
+        /// onPageView example
+        AdcioAnalytics.onPageView(
+          path: "Detail/${product.id}",
+        );
+
+        Navigator.push(context, ... ),
+      },
+    ),
+  );
 ```
-By wrapping the recommended product Widget as shown below, the `onImpression` event are automatically collected based on actions.
 
-</br>
-
-**onClick example:**
+There is a AddToCart example:
 ```dart
-  final option =
-        AdcioLogOption.fromMap(suggestion.logOptions);
-  ...
-  
+import 'package:adcio_analytics/adcio_analytics.dart';
+
+return YOUR_PRODUCT_CART_WIDGET(
   onTap: () {
-    ...
-
-    /// adcio onClick example
-    AdcioAnalytics.onClick(option);
+    final option = AdcioLogOption.fromMap(suggestion.logOptions);
+    
+    // onAddToCart example
+    AdcioAnalytics.onAddToCart(
+      cartId: "SAMPLE_CART_ID",
+      productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+    );
   },
+);
 ```
 
-</br>
-
-
-**onPurchase example:**
+There is a purchase example:
 ```dart
-  final option =
-        AdcioLogOption.fromMap(suggestion.logOptions);
-  ...
-  
+import 'package:adcio_analytics/adcio_analytics.dart';
+
+return YOUR_PAYMENT_SUBMIT_WIDGET(
   onTap: () {
-    /// adcio onPurchase example
-    AdcioAnalytics.onPurchase(option);
-    amount: 23910 // actual purchase price
+    final option = AdcioLogOption.fromMap(suggestion.logOptions);
+    
+    // onAddToCart example
+    AdcioAnalytics.onPurchase(
+      orderId: 'SAMPLE_ORDER_ID',
+      productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+      amount: product.price.toInt(), // actual purchase price
+    );
   },
+);
 ```
-For the `onPurchase` event, you input the actual purchase price that the customer paid into price and call the event when the customer clicks the button at the purchase point.
+To learn more about usage of plugin, please visit the [AdcioAnalytics Usage documentation.](https://docs.adcio.ai/en/sdk/log-collection/flutter)
 
-
-</br>
-
-## Features
-
-It mainly collects three events: impression, click, and purchase.
-
-Event | Description |  Function
---- | --- | --- | 
-impression | 광고 노출 | `AdcioAnalytics.onImpression(option)` 
-click | 광고 클릭 | `AdcioAnalytics.onClick(option)` 
-purchase | 광고 구매 | `AdcioAnalytics.onPurchase(option, amount: 23910)` 
-
-
-
-
+## Issues and feedback
+If the plugin has issues, bugs, feedback, Please contact <dev@corca.ai>.

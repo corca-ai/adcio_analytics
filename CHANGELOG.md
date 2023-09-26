@@ -1,3 +1,9 @@
+## 0.3.0
+
+* Feature: New log collection features have been added: `onPageView()` and `onAddToCart()`.
+* Feature: We have made it mandatory to initialize [adcio_core](https://pub.dev/packages/adcio_core).
+* Feature: We have added additional input parameters when collecting purchase logs.
+
 ## 0.2.4
 
 * Docs: update example code (not based on `adcio_placement`)
