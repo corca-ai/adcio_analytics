@@ -10,13 +10,6 @@ class ClickApiClient extends ApiClient {
   String get url => '${super.url}/performance/click';
 }
 
-class PurchaseApiClient extends ApiClient {
-  PurchaseApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
-
-  @override
-  String get url => '${super.url}/performance/purchase';
-}
-
 class ImpressionApiClient extends ApiClient {
   ImpressionApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
 
@@ -24,11 +17,25 @@ class ImpressionApiClient extends ApiClient {
   String get url => '${super.url}/performance/impression';
 }
 
+class PurchaseApiClient extends ApiClient {
+  PurchaseApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
+
+  @override
+  String get url => '${super.url}/events/purchase';
+}
+
 class PageViewApiClient extends ApiClient {
   PageViewApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
 
   @override
   String get url => '${super.url}/events/view';
+}
+
+class AddToCartApiClient extends ApiClient {
+  AddToCartApiClient({String? baseUrl}) : super(baseUrl: baseUrl);
+
+  @override
+  String get url => '${super.url}/events/add-to-cart';
 }
 
 class ApiClient {
@@ -43,23 +50,21 @@ class ApiClient {
   Future<void> callPerformance({
     required String requestId,
     required String adsetId,
-    int? amount,
   }) async {
     final params = <String, dynamic>{};
     params['requestId'] = requestId;
     params['adsetId'] = adsetId;
-    if (amount != null) params['amount'] = amount;
 
     return _handlePostRequest(params);
   }
 
-  Future<void> callEvent({
+  Future<void> callPageViewEvent({
     required String sessionId,
     required String deviceId,
     required String storeId,
     required String path,
     String? customerId,
-    String? productCode,
+    String? productIdOnStore,
     String? title,
     String? referrer,
   }) async {
@@ -69,9 +74,49 @@ class ApiClient {
     params['storeId'] = storeId;
     params['path'] = path;
     if (customerId != null) params['customerId'] = customerId;
-    if (productCode != null) params['productCode'] = productCode;
+    if (productIdOnStore != null) params['productIdOnStore'] = productIdOnStore;
     if (title != null) params['title'] = title;
     if (referrer != null) params['referrer'] = referrer;
+
+    return _handlePostRequest(params);
+  }
+
+  Future<void> callPurchaseEvent({
+    required String sessionId,
+    required String deviceId,
+    required String storeId,
+    required String orderId,
+    required String productIdOnStore,
+    required int amount,
+    String? customerId,
+  }) async {
+    final params = <String, dynamic>{};
+    params['sessionId'] = sessionId;
+    params['deviceId'] = deviceId;
+    params['storeId'] = storeId;
+    params['orderId'] = orderId;
+    params['productIdOnStore'] = productIdOnStore;
+    params['amount'] = amount;
+    if (customerId != null) params['customerId'] = customerId;
+
+    return _handlePostRequest(params);
+  }
+
+  Future<void> callAddToCartEvent({
+    required String sessionId,
+    required String deviceId,
+    required String cartId,
+    required String storeId,
+    required String productIdOnStore,
+    String? customerId,
+  }) async {
+    final params = <String, dynamic>{};
+    params['sessionId'] = sessionId;
+    params['deviceId'] = deviceId;
+    params['cartId'] = cartId;
+    params['storeId'] = storeId;
+    params['productIdOnStore'] = productIdOnStore;
+    if (customerId != null) params['customerId'] = customerId;
 
     return _handlePostRequest(params);
   }

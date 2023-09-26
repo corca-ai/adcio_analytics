@@ -2,6 +2,7 @@ library adcio_analytics;
 
 export 'package:adcio_analytics/src/adcio_log_option.dart';
 export 'package:adcio_analytics/src/adcio_impression_detector.dart';
+
 import 'package:adcio_analytics/adcio_analytics.dart';
 import 'package:adcio_analytics/src/api_client.dart';
 import 'package:adcio_core/adcio_core.dart';
@@ -46,15 +47,24 @@ class AdcioAnalytics {
   /// purchase event log
   ///
   /// This event is called when a user purchases a recommended product.
-  static void onPurchase(
-    AdcioLogOption option, {
+  static void onPurchase({
+    required String orderId,
+    required String productIdOnStore,
     required int amount,
+    String? sessionId,
+    String? deviceId,
+    String? storeId,
+    String? customerId,
     String? baseUrl,
   }) {
-    PurchaseApiClient(baseUrl: baseUrl).callPerformance(
-      requestId: option.requestId,
-      adsetId: option.adsetId,
+    PurchaseApiClient(baseUrl: baseUrl).callPurchaseEvent(
+      sessionId: sessionId ?? AdcioCore.sessionId,
+      deviceId: deviceId ?? AdcioCore.deviceId,
+      storeId: storeId ?? AdcioCore.storeId,
+      orderId: orderId,
+      productIdOnStore: productIdOnStore,
       amount: amount,
+      customerId: customerId,
     );
   }
 
@@ -68,19 +78,41 @@ class AdcioAnalytics {
     String? storeId,
     String? title,
     String? customerId,
-    String? productCode,
+    String? productIdOnStore,
     String? referrer,
     String? baseUrl,
   }) {
-    PageViewApiClient(baseUrl: baseUrl).callEvent(
+    PageViewApiClient(baseUrl: baseUrl).callPageViewEvent(
       sessionId: sessionId ?? AdcioCore.sessionId,
       deviceId: deviceId ?? AdcioCore.deviceId,
       storeId: storeId ?? AdcioCore.storeId,
       path: path,
       customerId: customerId,
-      productCode: productCode,
+      productIdOnStore: productIdOnStore,
       title: title ?? path,
       referrer: referrer,
+    );
+  }
+
+  /// add to cart event log
+  ///
+  /// This event is called when the customer adds a product to the cart.
+  static void onAddToCart({
+    required String cartId,
+    required String productIdOnStore,
+    String? sessionId,
+    String? deviceId,
+    String? storeId,
+    String? customerId,
+    String? baseUrl,
+  }) {
+    AddToCartApiClient(baseUrl: baseUrl).callAddToCartEvent(
+      sessionId: sessionId ?? AdcioCore.sessionId,
+      deviceId: deviceId ?? AdcioCore.deviceId,
+      cartId: cartId,
+      storeId: storeId ?? AdcioCore.storeId,
+      productIdOnStore: productIdOnStore,
+      customerId: customerId,
     );
   }
 }
