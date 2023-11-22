@@ -28,6 +28,9 @@ class AdcioAnalytics {
     String? baseUrl,
   }) {
     ClickApiClient(baseUrl: baseUrl).callPerformance(
+      sessionId: sessionId ?? AdcioCore.sessionId,
+      deviceId: deviceId ?? AdcioCore.deviceId,
+      storeId: storeId ?? AdcioCore.storeId,
       requestId: option.requestId,
       adsetId: option.adsetId,
       customerId: customerId,
@@ -48,6 +51,9 @@ class AdcioAnalytics {
     _impressionHistory.add(option.adsetId);
 
     ImpressionApiClient(baseUrl: baseUrl).callPerformance(
+      sessionId: sessionId ?? AdcioCore.sessionId,
+      deviceId: deviceId ?? AdcioCore.deviceId,
+      storeId: storeId ?? AdcioCore.storeId,
       requestId: option.requestId,
       adsetId: option.adsetId,
       customerId: customerId,
