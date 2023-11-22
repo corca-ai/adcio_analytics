@@ -48,12 +48,20 @@ class ApiClient {
   String get url => _baseUrl;
 
   Future<void> callPerformance({
+    required String sessionId,
+    required String deviceId,
+    required String storeId,
     required String requestId,
     required String adsetId,
+    String? customerId,
   }) async {
     final params = <String, dynamic>{};
+    params['sessionId'] = sessionId;
+    params['deviceId'] = deviceId;
+    params['storeId'] = storeId;
     params['requestId'] = requestId;
     params['adsetId'] = adsetId;
+    if (customerId != null) params['customerId'] = customerId;
 
     return _handlePostRequest(params);
   }
