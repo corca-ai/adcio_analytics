@@ -19,21 +19,30 @@ class AdcioAnalytics {
   /// click event log
   ///
   /// This event is called when a user clicks on a recommended product displayed on a suggestion placement.
-  static void onClick(
-    AdcioLogOption option, {
+  static void onClick({
+    required AdcioLogOption option,
+    String? sessionId,
+    String? deviceId,
+    String? customerId,
+    String? storeId,
     String? baseUrl,
   }) {
     ClickApiClient(baseUrl: baseUrl).callPerformance(
       requestId: option.requestId,
       adsetId: option.adsetId,
+      customerId: customerId,
     );
   }
 
   /// impression event log
   ///
   /// This event is called when a suggestion placement is displayed on the screen during the ad lifecycle (e.g., page lifecycle). This call occurs only once when the suggestion placement is revealed.
-  static void onImpression(
-    AdcioLogOption option, {
+  static void onImpression({
+    required AdcioLogOption option,
+    String? sessionId,
+    String? deviceId,
+    String? customerId,
+    String? storeId,
     String? baseUrl,
   }) {
     _impressionHistory.add(option.adsetId);
@@ -41,6 +50,7 @@ class AdcioAnalytics {
     ImpressionApiClient(baseUrl: baseUrl).callPerformance(
       requestId: option.requestId,
       adsetId: option.adsetId,
+      customerId: customerId,
     );
   }
 

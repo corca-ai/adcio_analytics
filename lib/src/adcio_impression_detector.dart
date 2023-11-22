@@ -29,7 +29,7 @@ class AdcioImpressionDetector extends StatelessWidget {
         if (AdcioAnalytics.hasImpression(option.adsetId)) return;
 
         AdcioAnalytics.onImpression(
-          option,
+          option: option,
           baseUrl: baseUrl,
         );
       },
