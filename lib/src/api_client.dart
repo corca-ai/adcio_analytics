@@ -61,7 +61,7 @@ class ApiClient {
     params['storeId'] = storeId;
     params['requestId'] = requestId;
     params['adsetId'] = adsetId;
-    if (customerId != null) params['customerId'] = customerId;
+    if (customerId?.isNotEmpty ?? false) params['customerId'] = customerId;
 
     return _handlePostRequest(params);
   }
