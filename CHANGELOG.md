@@ -1,3 +1,6 @@
+## 0.3.1
+* Fix: Update Performance endpoint api request schema
+
 ## 0.3.0
 
 * Feature: New log collection features have been added: `onPageView()` and `onAddToCart()`.
