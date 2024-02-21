@@ -14,6 +14,7 @@ There is a simple use example:
 ```dart
 import 'package:adcio_analytics/adcio_analytics.dart';
 
+AdcioAnalytics.init("SAMPLE_CLIENT_ID") // create singleton objectㅏ
 final option = AdcioLogOption.fromMap(suggestion.logOptions);
 
 /// impression Widget example
@@ -24,16 +25,10 @@ return AdcioImpressionDetector(
       onTap: () {
 
         /// onClick example
-        AdcioAnalytics.onClick(
-          option: option,
-          clientId: "SAMPLE_CLIENT_ID"
-        );
+        AdcioAnalytics.onClick(option: option);
 
         /// onPageView example
-        AdcioAnalytics.onPageView(
-          path: "Detail/${product.id}",
-          clientId: "SAMPLE_CLIENT_ID"
-        );
+        AdcioAnalytics.onPageView(path: "Detail/${product.id}");
 
         Navigator.push(context, ... ),
       },
@@ -52,8 +47,7 @@ return YOUR_PRODUCT_CART_WIDGET(
     // onAddToCart example
     AdcioAnalytics.onAddToCart(
       cartId: "SAMPLE_CART_ID",
-      productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
-      clientId: "SAMPLE_CLIENT_ID"
+      productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE'
     );
   },
 );
@@ -71,8 +65,7 @@ return YOUR_PAYMENT_SUBMIT_WIDGET(
     AdcioAnalytics.onPurchase(
       orderId: 'SAMPLE_ORDER_ID',
       productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
-      amount: product.price.toInt(), // actual purchase price
-      clientId: "SAMPLE_CLIENT_ID"
+      amount: product.price.toInt() // actual purchase price
     );
   },
 );
