@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  adcio_core: ^0.1.0
+  adcio_core: ^1.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
