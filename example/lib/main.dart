@@ -108,7 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 /// (This automatically triggers the onImpression logging event)
                 return AdcioImpressionDetector(
                   option: option,
-                  clientId: clientId,
                   child: GestureDetector(
                       onTap: () {
                         ///
@@ -164,7 +163,7 @@ class AnalyticsSampleListTile extends StatefulWidget {
 }
 
 class _AnalyticsSampleListTileState extends State<AnalyticsSampleListTile> {
-  
+
   @override
   Widget build(BuildContext context) {
     return Card(
