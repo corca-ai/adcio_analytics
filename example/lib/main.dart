@@ -1,4 +1,3 @@
-import 'package:adcio_core/adcio_core.dart';
 import 'package:example/data/mock_product.dart';
 import 'package:flutter/material.dart';
 
@@ -7,11 +6,6 @@ import 'package:adcio_analytics/adcio_analytics.dart';
 void main() async {
   /// You must call this function before calling the initializeApp function to avoid error.
   WidgetsFlutterBinding.ensureInitialized();
-
-  /// It is really important to use this function of init in AdcioCore at the time of running the app.
-  /// To learn more about usage of AdcioCore, please visit the AdcioCore Usage documentation.
-  /// https://docs.adcio.ai/en/sdk/core/flutter
-  await AdcioCore.initializeApp(clientId: 'SAMPLE_CLIENT_ID');
 
   runApp(const MyApp());
 }
@@ -43,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late Future<List<MockProduct>> _adcioSuggestion;
+  final String clientId = "SAMPLE_CLIENT_ID";
 
   @override
   void initState() {
@@ -53,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     /// Be sure to call the function to match the page-changing Navigation!
     AdcioAnalytics.onPageView(
       path: "MainPage",
+      clientId: clientId,
     );
 
     /// called adcioSuggest method (adcio_placement package)
@@ -114,17 +110,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 /// (This automatically triggers the onImpression logging event)
                 return AdcioImpressionDetector(
                   option: option,
+                  clientId: clientId,
                   child: GestureDetector(
                       onTap: () {
                         ///
                         /// adcio onClick example
                         AdcioAnalytics.onClick(
-                          option,
+                          option: option,
+                          clientId: clientId
                         );
 
                         /// Call the onPageView function at the point of navigation like this function.
                         AdcioAnalytics.onPageView(
                           path: "Detail/${product.id}",
+                          clientId: clientId
                         );
 
                         // navigate to product detail page
@@ -143,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         );
                       },
-                      child: AnalyticsSampleListTile(product: product)),
+                      child: AnalyticsSampleListTile(product: product, clientId: clientId)),
                 );
               },
             );
@@ -162,9 +161,11 @@ class AnalyticsSampleListTile extends StatelessWidget {
   const AnalyticsSampleListTile({
     Key? key,
     required this.product,
+    required this.clientId,
   }) : super(key: key);
 
   final MockProduct product;
+  final String clientId;
 
   @override
   Widget build(BuildContext context) {
@@ -211,6 +212,7 @@ class AnalyticsSampleListTile extends StatelessWidget {
                     orderId: 'SAMPLE_ORDER_ID',
                     productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
                     amount: product.price.toInt(), // actual purchase price
+                    clientId: clientId
                   );
                 },
                 icon: const Icon(Icons.shopify_sharp),
@@ -223,6 +225,7 @@ class AnalyticsSampleListTile extends StatelessWidget {
                   AdcioAnalytics.onAddToCart(
                     cartId: "SAMPLE_CART_ID",
                     productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+                    clientId: clientId
                   );
                 },
                 icon: const Icon(Icons.shopping_cart),
