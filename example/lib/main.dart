@@ -6,7 +6,7 @@ import 'package:adcio_analytics/adcio_analytics.dart';
 void main() async {
   /// You must call this function before calling the initializeApp function to avoid error.
   WidgetsFlutterBinding.ensureInitialized();
-
+  AdcioAnalytics.init(clientId: "SAMPLE_CLIENT_ID");
   runApp(const MyApp());
 }
 
@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   late Future<List<MockProduct>> _adcioSuggestion;
 
   static const String clientId = "SAMPLE_CLIENT_ID";
-  AdcioAnalytics adcioAnalytics = AdcioAnalytics(clientId);
 
   @override
   void initState() {
@@ -48,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     /// adcio onPageView example
     /// Currently, this function is called once at the time of page creation.
     /// Be sure to call the function to match the page-changing Navigation!
-    adcioAnalytics.onPageView(path: "MainPage");
+    AdcioAnalytics.onPageView(path: "MainPage");
 
     /// called adcioSuggest method (adcio_placement package)
     /// ```dart
@@ -114,10 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       onTap: () {
                         ///
                         /// adcio onClick example
-                        adcioAnalytics.onClick(option: option);
+                        AdcioAnalytics.onClick(option: option);
 
                         /// Call the onPageView function at the point of navigation like this function.
-                        adcioAnalytics.onPageView(path: "Detail/${product.id}");
+                        AdcioAnalytics.onPageView(path: "Detail/${product.id}");
 
                         // navigate to product detail page
                         Navigator.push(
@@ -165,8 +164,7 @@ class AnalyticsSampleListTile extends StatefulWidget {
 }
 
 class _AnalyticsSampleListTileState extends State<AnalyticsSampleListTile> {
-  AdcioAnalytics adcioAnalytics = AdcioAnalytics(AnalyticsSampleListTile.clientId);
-
+  
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -208,7 +206,7 @@ class _AnalyticsSampleListTileState extends State<AnalyticsSampleListTile> {
                 onPressed: () {
                   ///
                   /// adcio onPurchase example
-                  adcioAnalytics.onPurchase(
+                  AdcioAnalytics.onPurchase(
                     orderId: 'SAMPLE_ORDER_ID',
                     productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
                     amount: widget.product.price.toInt(), // actual purchase price
@@ -221,7 +219,7 @@ class _AnalyticsSampleListTileState extends State<AnalyticsSampleListTile> {
                 onPressed: () {
                   ///
                   /// adcio onAddToCart example
-                  adcioAnalytics.onAddToCart(
+                  AdcioAnalytics.onAddToCart(
                     cartId: "SAMPLE_CART_ID",
                     productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE'
                   );
