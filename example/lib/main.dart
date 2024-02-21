@@ -37,7 +37,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late Future<List<MockProduct>> _adcioSuggestion;
-  final String clientId = "SAMPLE_CLIENT_ID";
+
+  static const String clientId = "SAMPLE_CLIENT_ID";
+  AdcioAnalytics adcioAnalytics = AdcioAnalytics(clientId);
 
   @override
   void initState() {
@@ -46,10 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     /// adcio onPageView example
     /// Currently, this function is called once at the time of page creation.
     /// Be sure to call the function to match the page-changing Navigation!
-    AdcioAnalytics.onPageView(
-      path: "MainPage",
-      clientId: clientId,
-    );
+    adcioAnalytics.onPageView(path: "MainPage");
 
     /// called adcioSuggest method (adcio_placement package)
     /// ```dart
@@ -115,16 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       onTap: () {
                         ///
                         /// adcio onClick example
-                        AdcioAnalytics.onClick(
-                          option: option,
-                          clientId: clientId
-                        );
+                        adcioAnalytics.onClick(option: option);
 
                         /// Call the onPageView function at the point of navigation like this function.
-                        AdcioAnalytics.onPageView(
-                          path: "Detail/${product.id}",
-                          clientId: clientId
-                        );
+                        adcioAnalytics.onPageView(path: "Detail/${product.id}");
 
                         // navigate to product detail page
                         Navigator.push(
@@ -142,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         );
                       },
-                      child: AnalyticsSampleListTile(product: product, clientId: clientId)),
+                      child: AnalyticsSampleListTile(product: product)),
                 );
               },
             );
@@ -157,15 +150,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class AnalyticsSampleListTile extends StatelessWidget {
+class AnalyticsSampleListTile extends StatefulWidget {
   const AnalyticsSampleListTile({
     Key? key,
     required this.product,
-    required this.clientId,
   }) : super(key: key);
 
   final MockProduct product;
-  final String clientId;
+  
+  static const String clientId = "SAMPLE_CLIENT_ID";
+
+  @override
+  State<AnalyticsSampleListTile> createState() => _AnalyticsSampleListTileState();
+}
+
+class _AnalyticsSampleListTileState extends State<AnalyticsSampleListTile> {
+  AdcioAnalytics adcioAnalytics = AdcioAnalytics(AnalyticsSampleListTile.clientId);
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +175,7 @@ class AnalyticsSampleListTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.network(
-            product.image,
+            widget.product.image,
             width: 100,
             height: 50,
             fit: BoxFit.cover,
@@ -187,14 +187,14 @@ class AnalyticsSampleListTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                product.name,
+                widget.product.name,
                 maxLines: 3,
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Text('₩ ${product.price}'),
+              Text('₩ ${widget.product.price}'),
             ],
           ),
         ),
@@ -208,11 +208,10 @@ class AnalyticsSampleListTile extends StatelessWidget {
                 onPressed: () {
                   ///
                   /// adcio onPurchase example
-                  AdcioAnalytics.onPurchase(
+                  adcioAnalytics.onPurchase(
                     orderId: 'SAMPLE_ORDER_ID',
                     productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
-                    amount: product.price.toInt(), // actual purchase price
-                    clientId: clientId
+                    amount: widget.product.price.toInt(), // actual purchase price
                   );
                 },
                 icon: const Icon(Icons.shopify_sharp),
@@ -222,10 +221,9 @@ class AnalyticsSampleListTile extends StatelessWidget {
                 onPressed: () {
                   ///
                   /// adcio onAddToCart example
-                  AdcioAnalytics.onAddToCart(
+                  adcioAnalytics.onAddToCart(
                     cartId: "SAMPLE_CART_ID",
-                    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
-                    clientId: clientId
+                    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE'
                   );
                 },
                 icon: const Icon(Icons.shopping_cart),
