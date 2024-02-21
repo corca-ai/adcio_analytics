@@ -13,12 +13,14 @@ class AdcioImpressionDetector extends StatelessWidget {
     super.key,
     required this.child,
     required this.option,
+    required this.clientId,
     this.baseUrl,
   });
 
   final Widget child;
   final AdcioLogOption option;
   final String? baseUrl;
+  final String clientId;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class AdcioImpressionDetector extends StatelessWidget {
 
         AdcioAnalytics.onImpression(
           option: option,
+          clientId: clientId,
           baseUrl: baseUrl,
         );
       },
