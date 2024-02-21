@@ -148,88 +148,82 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class AnalyticsSampleListTile extends StatefulWidget {
+class AnalyticsSampleListTile extends StatelessWidget {
   const AnalyticsSampleListTile({
     Key? key,
     required this.product,
   }) : super(key: key);
 
   final MockProduct product;
-  
+
   static const String clientId = "SAMPLE_CLIENT_ID";
-
-  @override
-  State<AnalyticsSampleListTile> createState() => _AnalyticsSampleListTileState();
-}
-
-class _AnalyticsSampleListTileState extends State<AnalyticsSampleListTile> {
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.network(
-            widget.product.image,
-            width: 100,
-            height: 50,
-            fit: BoxFit.cover,
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.network(
+              product.image,
+              width: 100,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                widget.product.name,
-                maxLines: 3,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  product.name,
+                  maxLines: 3,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              Text('₩ ${widget.product.price}'),
-            ],
+                Text('₩ ${product.price}'),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  ///
-                  /// adcio onPurchase example
-                  AdcioAnalytics.onPurchase(
-                    orderId: 'SAMPLE_ORDER_ID',
-                    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
-                    amount: widget.product.price.toInt(), // actual purchase price
-                  );
-                },
-                icon: const Icon(Icons.shopify_sharp),
-                label: const Text('Buy'),
-              ),
-              TextButton.icon(
-                onPressed: () {
-                  ///
-                  /// adcio onAddToCart example
-                  AdcioAnalytics.onAddToCart(
-                    cartId: "SAMPLE_CART_ID",
-                    productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE'
-                  );
-                },
-                icon: const Icon(Icons.shopping_cart),
-                label: const Text('Add To Cart'),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton.icon(
+                  onPressed: () {
+                    ///
+                    /// adcio onPurchase example
+                    AdcioAnalytics.onPurchase(
+                      orderId: 'SAMPLE_ORDER_ID',
+                      productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+                      amount: product.price.toInt(), // actual purchase price
+                    );
+                  },
+                  icon: const Icon(Icons.shopify_sharp),
+                  label: const Text('Buy'),
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    ///
+                    /// adcio onAddToCart example
+                    AdcioAnalytics.onAddToCart(
+                        cartId: "SAMPLE_CART_ID",
+                        productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE');
+                  },
+                  icon: const Icon(Icons.shopping_cart),
+                  label: const Text('Add To Cart'),
+                ),
+              ],
+            ),
           ),
-        )
-      ],
-    ));
+        ],
+      ),
+    );
   }
 }
