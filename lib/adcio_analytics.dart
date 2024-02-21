@@ -21,16 +21,16 @@ class AdcioAnalytics {
   /// This event is called when a user clicks on a recommended product displayed on a suggestion placement.
   static void onClick({
     required AdcioLogOption option,
+    required String clientId,
     String? sessionId,
     String? deviceId,
     String? customerId,
-    String? storeId,
     String? baseUrl,
-  }) {
+  }) async {
     ClickApiClient(baseUrl: baseUrl).callPerformance(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
-      storeId: storeId ?? AdcioCore.storeId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: clientId,
       requestId: option.requestId,
       adsetId: option.adsetId,
       customerId: customerId,
@@ -42,18 +42,18 @@ class AdcioAnalytics {
   /// This event is called when a suggestion placement is displayed on the screen during the ad lifecycle (e.g., page lifecycle). This call occurs only once when the suggestion placement is revealed.
   static void onImpression({
     required AdcioLogOption option,
+    required String clientId,
     String? sessionId,
     String? deviceId,
     String? customerId,
-    String? storeId,
     String? baseUrl,
-  }) {
+  }) async {
     _impressionHistory.add(option.adsetId);
 
     ImpressionApiClient(baseUrl: baseUrl).callPerformance(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
-      storeId: storeId ?? AdcioCore.storeId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: clientId,
       requestId: option.requestId,
       adsetId: option.adsetId,
       customerId: customerId,
@@ -67,16 +67,16 @@ class AdcioAnalytics {
     required String orderId,
     required String productIdOnStore,
     required int amount,
+    required String clientId,
     String? sessionId,
     String? deviceId,
-    String? storeId,
     String? customerId,
     String? baseUrl,
-  }) {
+  }) async {
     PurchaseApiClient(baseUrl: baseUrl).callPurchaseEvent(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
-      storeId: storeId ?? AdcioCore.storeId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: clientId,
       orderId: orderId,
       productIdOnStore: productIdOnStore,
       amount: amount,
@@ -89,19 +89,19 @@ class AdcioAnalytics {
   /// This event is called when a new screen is shown to the user.
   static void onPageView({
     required String path,
+    required String clientId,
     String? sessionId,
     String? deviceId,
-    String? storeId,
     String? title,
     String? customerId,
     String? productIdOnStore,
     String? referrer,
     String? baseUrl,
-  }) {
+  }) async {
     PageViewApiClient(baseUrl: baseUrl).callPageViewEvent(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
-      storeId: storeId ?? AdcioCore.storeId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: clientId,
       path: path,
       customerId: customerId,
       productIdOnStore: productIdOnStore,
@@ -116,17 +116,17 @@ class AdcioAnalytics {
   static void onAddToCart({
     required String cartId,
     required String productIdOnStore,
+    required String clientId,
     String? sessionId,
     String? deviceId,
-    String? storeId,
     String? customerId,
     String? baseUrl,
-  }) {
+  }) async {
     AddToCartApiClient(baseUrl: baseUrl).callAddToCartEvent(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: clientId,
       cartId: cartId,
-      storeId: storeId ?? AdcioCore.storeId,
       productIdOnStore: productIdOnStore,
       customerId: customerId,
     );
