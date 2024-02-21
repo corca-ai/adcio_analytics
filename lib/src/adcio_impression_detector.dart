@@ -30,9 +30,8 @@ class AdcioImpressionDetector extends StatelessWidget {
         if (info.visibleFraction < 0.5) return;
         if (AdcioAnalytics.hasImpression(option.adsetId)) return;
 
-        AdcioAnalytics.onImpression(
+        AdcioAnalytics(clientId).onImpression(
           option: option,
-          clientId: clientId,
           baseUrl: baseUrl,
         );
       },

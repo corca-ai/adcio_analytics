@@ -8,7 +8,10 @@ import 'package:adcio_analytics/src/api_client.dart';
 import 'package:adcio_core/adcio_core.dart';
 
 class AdcioAnalytics {
-  AdcioAnalytics._();
+
+  AdcioAnalytics(this.clientId);
+
+  final String clientId;
   static final _impressionHistory = <String>[];
 
   static bool hasImpression(String adsetId) =>
@@ -19,9 +22,8 @@ class AdcioAnalytics {
   /// click event log
   ///
   /// This event is called when a user clicks on a recommended product displayed on a suggestion placement.
-  static void onClick({
+  void onClick({
     required AdcioLogOption option,
-    required String clientId,
     String? sessionId,
     String? deviceId,
     String? customerId,
@@ -40,9 +42,8 @@ class AdcioAnalytics {
   /// impression event log
   ///
   /// This event is called when a suggestion placement is displayed on the screen during the ad lifecycle (e.g., page lifecycle). This call occurs only once when the suggestion placement is revealed.
-  static void onImpression({
+  void onImpression({
     required AdcioLogOption option,
-    required String clientId,
     String? sessionId,
     String? deviceId,
     String? customerId,
@@ -63,11 +64,10 @@ class AdcioAnalytics {
   /// purchase event log
   ///
   /// This event is called when a user purchases a recommended product.
-  static void onPurchase({
+  void onPurchase({
     required String orderId,
     required String productIdOnStore,
     required int amount,
-    required String clientId,
     String? sessionId,
     String? deviceId,
     String? customerId,
@@ -87,9 +87,8 @@ class AdcioAnalytics {
   /// page view event log
   ///
   /// This event is called when a new screen is shown to the user.
-  static void onPageView({
+  void onPageView({
     required String path,
-    required String clientId,
     String? sessionId,
     String? deviceId,
     String? title,
@@ -113,10 +112,9 @@ class AdcioAnalytics {
   /// add to cart event log
   ///
   /// This event is called when the customer adds a product to the cart.
-  static void onAddToCart({
+  void onAddToCart({
     required String cartId,
     required String productIdOnStore,
-    required String clientId,
     String? sessionId,
     String? deviceId,
     String? customerId,
