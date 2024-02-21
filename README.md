@@ -24,11 +24,15 @@ return AdcioImpressionDetector(
       onTap: () {
 
         /// onClick example
-        AdcioAnalytics.onClick(option);
+        AdcioAnalytics.onClick(
+          option: option,
+          clientId: "SAMPLE_CLIENT_ID"
+        );
 
         /// onPageView example
         AdcioAnalytics.onPageView(
           path: "Detail/${product.id}",
+          clientId: "SAMPLE_CLIENT_ID"
         );
 
         Navigator.push(context, ... ),
@@ -49,6 +53,7 @@ return YOUR_PRODUCT_CART_WIDGET(
     AdcioAnalytics.onAddToCart(
       cartId: "SAMPLE_CART_ID",
       productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
+      clientId: "SAMPLE_CLIENT_ID"
     );
   },
 );
@@ -67,11 +72,12 @@ return YOUR_PAYMENT_SUBMIT_WIDGET(
       orderId: 'SAMPLE_ORDER_ID',
       productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE',
       amount: product.price.toInt(), // actual purchase price
+      clientId: "SAMPLE_CLIENT_ID"
     );
   },
 );
 ```
-To learn more about usage of plugin, please visit the [AdcioAnalytics Usage documentation.](https://docs.adcio.ai/en/sdk/log-collection/flutter)
+To learn more about usage of plugin, please visit the [AdcioAnalytics Usage documentation.](https://docs.adcio.ai/en/sdk/flutter/log-collection)
 
 ## Issues and feedback
-If the plugin has issues, bugs, feedback, Please contact <dev@corca.ai>.
+If the plugin has issues, bugs, feedback, Please contact <app@corca.ai>.
