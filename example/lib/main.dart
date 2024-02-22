@@ -6,7 +6,7 @@ import 'package:adcio_analytics/adcio_analytics.dart';
 void main() async {
   /// You must call this function before calling the initializeApp function to avoid error.
   WidgetsFlutterBinding.ensureInitialized();
-  AdcioAnalytics.init(clientId: "SAMPLE_CLIENT_ID");
+  AdcioAnalytics.init(clientId: 'SAMPLE_CLIENT_ID');
   runApp(const MyApp());
 }
 
@@ -38,8 +38,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late Future<List<MockProduct>> _adcioSuggestion;
 
-  static const String clientId = "SAMPLE_CLIENT_ID";
-
   @override
   void initState() {
     super.initState();
@@ -47,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     /// adcio onPageView example
     /// Currently, this function is called once at the time of page creation.
     /// Be sure to call the function to match the page-changing Navigation!
-    AdcioAnalytics.onPageView(path: "MainPage");
+    AdcioAnalytics.onPageView(path: 'MainPage');
 
     /// called adcioSuggest method (adcio_placement package)
     /// ```dart
@@ -115,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         AdcioAnalytics.onClick(option: option);
 
                         /// Call the onPageView function at the point of navigation like this function.
-                        AdcioAnalytics.onPageView(path: "Detail/${product.id}");
+                        AdcioAnalytics.onPageView(path: 'Detail/${product.id}');
 
                         // navigate to product detail page
                         Navigator.push(
@@ -156,7 +154,7 @@ class AnalyticsSampleListTile extends StatelessWidget {
 
   final MockProduct product;
 
-  static const String clientId = "SAMPLE_CLIENT_ID";
+  static const String clientId = 'SAMPLE_CLIENT_ID';
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +211,7 @@ class AnalyticsSampleListTile extends StatelessWidget {
                     ///
                     /// adcio onAddToCart example
                     AdcioAnalytics.onAddToCart(
-                        cartId: "SAMPLE_CART_ID",
+                        cartId: 'SAMPLE_CART_ID',
                         productIdOnStore: 'SAMPLE_PRODUCT_ID_ON_STORE');
                   },
                   icon: const Icon(Icons.shopping_cart),
