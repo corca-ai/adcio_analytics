@@ -8,7 +8,14 @@ import 'package:adcio_analytics/src/api_client.dart';
 import 'package:adcio_core/adcio_core.dart';
 
 class AdcioAnalytics {
+
   AdcioAnalytics._();
+  
+  static init({required String clientId}) {
+    _clientId = clientId;
+  }
+
+  static late String _clientId;
   static final _impressionHistory = <String>[];
 
   static bool hasImpression(String adsetId) =>
@@ -24,13 +31,12 @@ class AdcioAnalytics {
     String? sessionId,
     String? deviceId,
     String? customerId,
-    String? storeId,
     String? baseUrl,
-  }) {
+  }) async {
     ClickApiClient(baseUrl: baseUrl).callPerformance(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
-      storeId: storeId ?? AdcioCore.storeId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: _clientId,
       requestId: option.requestId,
       adsetId: option.adsetId,
       customerId: customerId,
@@ -45,15 +51,14 @@ class AdcioAnalytics {
     String? sessionId,
     String? deviceId,
     String? customerId,
-    String? storeId,
     String? baseUrl,
-  }) {
+  }) async {
     _impressionHistory.add(option.adsetId);
 
     ImpressionApiClient(baseUrl: baseUrl).callPerformance(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
-      storeId: storeId ?? AdcioCore.storeId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: _clientId,
       requestId: option.requestId,
       adsetId: option.adsetId,
       customerId: customerId,
@@ -69,14 +74,13 @@ class AdcioAnalytics {
     required int amount,
     String? sessionId,
     String? deviceId,
-    String? storeId,
     String? customerId,
     String? baseUrl,
-  }) {
+  }) async {
     PurchaseApiClient(baseUrl: baseUrl).callPurchaseEvent(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
-      storeId: storeId ?? AdcioCore.storeId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: _clientId,
       orderId: orderId,
       productIdOnStore: productIdOnStore,
       amount: amount,
@@ -91,17 +95,16 @@ class AdcioAnalytics {
     required String path,
     String? sessionId,
     String? deviceId,
-    String? storeId,
     String? title,
     String? customerId,
     String? productIdOnStore,
     String? referrer,
     String? baseUrl,
-  }) {
+  }) async {
     PageViewApiClient(baseUrl: baseUrl).callPageViewEvent(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
-      storeId: storeId ?? AdcioCore.storeId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: _clientId,
       path: path,
       customerId: customerId,
       productIdOnStore: productIdOnStore,
@@ -118,15 +121,14 @@ class AdcioAnalytics {
     required String productIdOnStore,
     String? sessionId,
     String? deviceId,
-    String? storeId,
     String? customerId,
     String? baseUrl,
-  }) {
+  }) async {
     AddToCartApiClient(baseUrl: baseUrl).callAddToCartEvent(
-      sessionId: sessionId ?? AdcioCore.sessionId,
-      deviceId: deviceId ?? AdcioCore.deviceId,
+      sessionId: sessionId ?? SessionIdentifier().identifier,
+      deviceId: deviceId ?? await DeviceIdentifier().identifier,
+      storeId: _clientId,
       cartId: cartId,
-      storeId: storeId ?? AdcioCore.storeId,
       productIdOnStore: productIdOnStore,
       customerId: customerId,
     );
