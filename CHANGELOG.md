@@ -1,3 +1,7 @@
+## 1.0.0
+* Feature: updated to reflect the core version up
+* Feature: change to get clientid as a singleton
+
 ## 0.3.0
 
 * Feature: New log collection features have been added: `onPageView()` and `onAddToCart()`.
