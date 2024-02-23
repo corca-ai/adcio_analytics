@@ -1,5 +1,6 @@
-## 0.3.1
-* Fix: Update Performance endpoint api request schema
+## 1.0.0
+* Feature: updated to reflect the core version up
+* Feature: change to get clientid as a singleton
 
 ## 0.3.0
 
